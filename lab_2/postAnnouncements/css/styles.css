@@ -1,0 +1,48 @@
+.announcement {
+    margin: 20px 20px;
+    display: flex;
+    align-items: center;
+}
+
+.announcement button.remove_announcement {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+}
+
+.announcement button.remove_announcement:hover {
+    background-color: #ff0000;
+}
+
+.announcement-textarea {
+    width: 100%; 
+    margin: 10px 10px;
+    min-height: 50px;
+    max-height: 200px;
+}
+
+
+#add_announcement {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 10px;
+    text-align: center;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#announcements {
+    margin: 20px 30px 30px 10px;
+    padding: 10px;
+    border: 1px solid #979797;
+    border-radius: 5px;
+    background-color: #e4e3e3;
+}
