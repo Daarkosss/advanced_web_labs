@@ -15,6 +15,11 @@ function post_announcements_menu() {
 add_action('admin_menu', 'post_announcements_menu');
 
 
+function clean_and_trim($value) {
+    return trim(stripslashes_deep($value));
+}
+
+
 // Setting page
 function post_announcements_settings_page() {
     if (!current_user_can('manage_options')) {
@@ -23,7 +28,7 @@ function post_announcements_settings_page() {
 
     // Handle form save
     if (isset($_POST['announcements_content'])) {
-        $announcements_content = array_map('trim', $_POST['announcements_content']);
+        $announcements_content = array_map('clean_and_trim', $_POST['announcements_content']);
         $announcements_content = array_filter($announcements_content); // Filter out blank announcements
         update_option('post_announcements_content', $announcements_content);
         echo '<div class="updated"><p>Announcements saved.</p></div>';
