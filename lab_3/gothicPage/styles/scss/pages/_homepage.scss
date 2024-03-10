@@ -1,0 +1,42 @@
+#container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+  
+.camp-selection {
+@include flex-center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.camp {
+  border: 3px solid transparent; // Początkowo przezroczysta obwódka.
+  overflow: hidden; // Zapobiega wystawaniu poza granice podczas transformacji.
+  transition: border-color 0.3s, background-color 0.3s, transform 0.3s;
+  cursor: help;
+  
+  &:hover {
+    background-color: $hover-color;
+    border-color: $border-color;
+    transform: scale(1.05); // Lekkie powiększenie podczas hover.
+  }
+  
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s;
+    
+    &:hover {
+      transform: scale(1.1); // Powiększenie obrazka podczas hover.
+    }
+  }
+  
+  p {
+    text-align: center;
+    margin: 0;
+    padding: 10px 0;
+  }
+}

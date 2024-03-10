@@ -1,0 +1,15 @@
+@use '../helpers/variables' as *;
+
+body {
+    font-family: $primary-font;
+    color: $primary-color;
+    margin: 0;
+    padding: 0;
+    background: #f4f4f4; // lekki kolor tła strony
+}
+
+h1 {
+    text-align: center;
+    margin: 0;
+    padding: 20px 0;
+}
