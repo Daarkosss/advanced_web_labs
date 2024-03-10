@@ -5,13 +5,12 @@ body {
   color: #000000;
   margin: 0;
   padding: 0;
-  background: linear-gradient(to right, #603601, #b36f22);
+  background: linear-gradient(to right, #603601, #945f22);
 }
 
 h1 {
   text-align: center;
-  font-size: 60px;
-  padding: 20px 0;
+  font-size: 44px;
 }
 
 #container {
@@ -23,7 +22,7 @@ h1 {
 .title {
   background-color: #ffdfaf;
   border: 2px solid #000000;
-  border-radius: 20%;
+  border-radius: 5%;
 }
 
 .camp-selection {
