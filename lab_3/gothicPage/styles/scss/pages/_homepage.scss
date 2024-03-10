@@ -15,7 +15,6 @@
   border: 3px solid transparent; // Początkowo przezroczysta obwódka.
   overflow: hidden; // Zapobiega wystawaniu poza granice podczas transformacji.
   transition: border-color 0.3s, background-color 0.3s, transform 0.3s;
-  cursor: help;
   
   &:hover {
     background-color: $hover-color;
