@@ -112,4 +112,95 @@ h1 {
   padding: 10px 0;
 }
 
+.swamp-camp-page {
+  margin: 0 auto;
+  padding: 10px 15vw;
+  background: linear-gradient(to right, #114308, #1f770f);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.header {
+  text-align: center;
+}
+
+.main-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin-bottom: 10px;
+  border-radius: 5%;
+}
+.main-image p {
+  text-align: center;
+  background-color: #ffdfaf;
+  padding: 20px;
+  border-radius: 5%;
+}
+
+.gallery {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.gallery .grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+  width: 50%;
+}
+.gallery .single-image-container {
+  width: 25%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: #41c53d;
+}
+.gallery .single-image-container img {
+  width: 100%;
+  height: auto;
+}
+.gallery .image {
+  width: 65%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: #41c53d;
+}
+.gallery .image img {
+  width: 100%;
+  height: auto;
+}
+
+footer {
+  margin-top: 50px;
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+  background-color: #ffdfaf;
+  padding: 5px;
+  border-radius: 5%;
+}
+
+.back-button {
+  position: absolute;
+  top: 30px;
+  left: 20px;
+  display: inline-block;
+  padding: 0.5em 1em;
+  background-color: black;
+  color: #1f770f;
+  text-decoration: none;
+  border-radius: 10px;
+  -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+.back-button:hover {
+  background-color: #262626;
+}
+
 /*# sourceMappingURL=main.css.map */

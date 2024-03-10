@@ -3,7 +3,7 @@
 $primary-font: 'Unbounded', sans-serif;
 $primary-color: #000000;
 $secondary-color: #ffdfaf;
-$background-gradient: linear-gradient(to right, #603601, #945f22);
+$home-background-gradient: linear-gradient(to right, #603601, #945f22);
 
 $old-camp-hover-color: #50000d;
 $old-camp-border-color: #880016;
@@ -11,5 +11,7 @@ $old-camp-border-color: #880016;
 $new-camp-hover-color: #151669;
 $new-camp-border-color: #2224ad;
 
-$swamp-camp-hover-color: #114308;
-$swamp-camp-border-color: #1f770f;
+$swamp-camp-dark-color: #114308;
+$swamp-camp-medium-color: #1f770f;
+$swamp-camp-light-color: #41c53d;
+$swamp-camp-background-gradient: linear-gradient(to right, $swamp-camp-dark-color, $swamp-camp-medium-color);
