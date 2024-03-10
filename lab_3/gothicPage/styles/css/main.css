@@ -3,17 +3,18 @@ body {
   color: #000000;
   margin: 0;
   padding: 0;
-  background: #884a39;
+  background: #693a1c;
 }
 
 h1 {
   text-align: center;
   margin: 0;
+  font-size: 72px;
   padding: 20px 0;
 }
 
 #container {
-  max-width: 1200px;
+  max-width: 50%;
   margin: 0 auto;
   padding: 20px;
 }
@@ -27,28 +28,81 @@ h1 {
   margin-top: 20px;
 }
 
-.camp {
-  border: 3px solid transparent;
+#oldCamp {
+  text-decoration: none;
+  color: black;
+  border: 30px solid transparent;
+  border-bottom-width: 1px;
   overflow: hidden;
-  transition: border-color 0.3s, background-color 0.3s, transform 0.3s;
+  transition: border-color 0.1s, background-color 0.1s, transform 0.3s;
 }
-.camp:hover {
-  background-color: #c9a678;
-  border-color: #d3c295;
+#oldCamp:hover {
+  border-color: #880016;
+  background-color: #880016;
   transform: scale(1.05);
 }
-.camp img {
+#oldCamp img {
   width: 100%;
   height: auto;
   display: block;
   transition: transform 0.3s;
 }
-.camp img:hover {
-  transform: scale(1.1);
-}
-.camp p {
+#oldCamp p {
   text-align: center;
   margin: 0;
+  font-size: 30px;
+  padding: 10px 0;
+}
+
+#newCamp {
+  text-decoration: none;
+  color: black;
+  border: 30px solid transparent;
+  border-bottom-width: 1px;
+  overflow: hidden;
+  transition: border-color 0.1s, background-color 0.1s, transform 0.3s;
+}
+#newCamp:hover {
+  border-color: #2224ad;
+  background-color: #2224ad;
+  transform: scale(1.05);
+}
+#newCamp img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.3s;
+}
+#newCamp p {
+  text-align: center;
+  margin: 0;
+  font-size: 30px;
+  padding: 10px 0;
+}
+
+#swampCamp {
+  text-decoration: none;
+  color: black;
+  border: 30px solid transparent;
+  border-bottom-width: 1px;
+  overflow: hidden;
+  transition: border-color 0.1s, background-color 0.1s, transform 0.3s;
+}
+#swampCamp:hover {
+  border-color: #1f770f;
+  background-color: #1f770f;
+  transform: scale(1.05);
+}
+#swampCamp img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.3s;
+}
+#swampCamp p {
+  text-align: center;
+  margin: 0;
+  font-size: 30px;
   padding: 10px 0;
 }
 

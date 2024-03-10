@@ -1,5 +1,5 @@
 #container {
-    max-width: 1200px;
+    max-width: 50%;
     margin: 0 auto;
     padding: 20px;
 }
@@ -11,14 +11,18 @@
     margin-top: 20px;
 }
 
-.camp {
-  border: 3px solid transparent; // Początkowo przezroczysta obwódka.
+@mixin camp($border-color) {
+  text-decoration:none;
+  color: black;
+
+  border: 30px solid transparent; // Początkowo przezroczysta obwódka.
+  border-bottom-width: 1px;
   overflow: hidden; // Zapobiega wystawaniu poza granice podczas transformacji.
-  transition: border-color 0.3s, background-color 0.3s, transform 0.3s;
-  
-  &:hover {
-    background-color: $hover-color;
+  transition: border-color 0.1s, background-color 0.1s, transform 0.3s;
+
+  &:hover {   
     border-color: $border-color;
+    background-color: $border-color;
     transform: scale(1.05); // Lekkie powiększenie podczas hover.
   }
   
@@ -27,15 +31,23 @@
     height: auto;
     display: block;
     transition: transform 0.3s;
-    
-    &:hover {
-      transform: scale(1.1); // Powiększenie obrazka podczas hover.
-    }
   }
-  
+
   p {
     text-align: center;
     margin: 0;
+    font-size: 30px;
     padding: 10px 0;
   }
+}
+
+#oldCamp{
+  @include camp($old-camp-border-color)
+}
+
+#newCamp{
+  @include camp($new-camp-border-color)
+}
+#swampCamp{
+  @include camp($swamp-camp-border-color)
 }
