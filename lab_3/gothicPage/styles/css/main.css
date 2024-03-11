@@ -123,6 +123,7 @@ h1 {
 .swamp-camp-page .content {
   margin-top: 20px;
   width: 60%;
+  font-size: 14px;
 }
 
 .header {
@@ -133,6 +134,11 @@ h1 {
   color: #1f770f;
   position: sticky;
   border-bottom: 5px solid #1f770f;
+}
+.header .music {
+  position: absolute;
+  top: 30px;
+  right: 20px;
 }
 
 .main-image img {
