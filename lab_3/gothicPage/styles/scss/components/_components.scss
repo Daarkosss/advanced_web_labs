@@ -1,3 +1,13 @@
+@use '../helpers/variables' as *;
+@use '../helpers/functions' as *;
+
+.button {
+    display: inline-block;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    border-radius: multiply($basic-border-radius, 2);
+}
+
 @mixin section($background-color, $color) {
     width: 100%;
     top: 0;
@@ -30,15 +40,12 @@
     border-bottom: 5px solid $color;
 
     .back-button {
+        @extend .button;
         position: absolute;
         top: 40px;
         left: 20px;
-        display: inline-block;
-        padding: 0.5em 1em;
         background-color: $color; 
         color: $background-color;
-        text-decoration: none;
-        border-radius: 10px;
     
         &:hover {
             background-color: lighten($color, 15%);

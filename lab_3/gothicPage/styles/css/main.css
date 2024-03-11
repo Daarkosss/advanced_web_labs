@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Orbitron&family=Play&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Unbounded:wght@200..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Orbitron&family=Play&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Unbounded:wght@200..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Orbitron&family=Play&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Unbounded:wght@200..900&display=swap");
 body {
   font-family: "Unbounded", sans-serif;
   color: #000000;
@@ -112,6 +113,13 @@ h1 {
   padding: 10px 0;
 }
 
+.button, .swamp-camp-page .swamp-header .back-button {
+  display: inline-block;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  border-radius: 10%;
+}
+
 .swamp-camp-page {
   margin: 0 auto;
   background: linear-gradient(to right, #114308, #1f770f);
@@ -148,12 +156,8 @@ h1 {
   position: absolute;
   top: 40px;
   left: 20px;
-  display: inline-block;
-  padding: 0.5em 1em;
   background-color: #1f770f;
   color: #000000;
-  text-decoration: none;
-  border-radius: 10px;
 }
 .swamp-camp-page .swamp-header .back-button:hover {
   background-color: #31bb18;
