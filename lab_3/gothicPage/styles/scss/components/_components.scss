@@ -4,6 +4,11 @@
     text-align: center;
     background-color: $background-color;
     color: $color;
+    padding: 5px 0px;
+
+    .title, .content {
+        box-sizing: border-box;
+    }
 
     .title {
         font-size: 34px;
@@ -15,8 +20,8 @@
         font-size: 16px;
         background-color: lighten($color, 2%);
         color: $background-color;
+        padding: 20px; // Dodaje padding wewnątrz .content
     }
-    padding: 5px 0px;
 }
 
 @mixin header($background-color, $color) {

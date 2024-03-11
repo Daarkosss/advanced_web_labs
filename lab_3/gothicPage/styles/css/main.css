@@ -130,6 +130,9 @@ h1 {
   position: sticky;
   border-bottom: 5px solid #1f770f;
 }
+.swamp-camp-page .swamp-header .title, .swamp-camp-page .swamp-header .content {
+  box-sizing: border-box;
+}
 .swamp-camp-page .swamp-header .title {
   font-size: 34px;
   background-color: #000000;
@@ -139,6 +142,7 @@ h1 {
   font-size: 16px;
   background-color: #218010;
   color: #000000;
+  padding: 20px;
 }
 .swamp-camp-page .swamp-header .back-button {
   position: absolute;
@@ -182,6 +186,9 @@ h1 {
   padding: 5px 0px;
   margin-top: 50px;
 }
+.section .title, .section .content {
+  box-sizing: border-box;
+}
 .section .title {
   font-size: 34px;
   background-color: #000000;
@@ -191,6 +198,7 @@ h1 {
   font-size: 16px;
   background-color: #218010;
   color: #000000;
+  padding: 20px;
 }
 
 .gallery {
