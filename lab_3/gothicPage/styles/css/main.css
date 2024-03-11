@@ -114,16 +114,25 @@ h1 {
 
 .swamp-camp-page {
   margin: 0 auto;
-  padding: 10px 15vw;
   background: linear-gradient(to right, #114308, #1f770f);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
+.swamp-camp-page .content {
+  margin-top: 20px;
+  width: 60%;
+}
 
 .header {
+  width: 100%;
+  top: 0;
   text-align: center;
+  background-color: black;
+  color: #1f770f;
+  position: sticky;
+  border-bottom: 5px solid #1f770f;
 }
 
 .main-image img {
@@ -158,6 +167,7 @@ h1 {
   align-items: center;
   flex-direction: column;
   background-color: #41c53d;
+  border-radius: 5%;
 }
 .gallery .single-image-container img {
   width: 100%;
@@ -170,6 +180,7 @@ h1 {
   align-items: center;
   flex-direction: column;
   background-color: #41c53d;
+  border-radius: 5%;
 }
 .gallery .image img {
   width: 100%;
@@ -188,19 +199,19 @@ footer {
 
 .back-button {
   position: absolute;
-  top: 30px;
+  top: 40px;
   left: 20px;
   display: inline-block;
   padding: 0.5em 1em;
-  background-color: black;
-  color: #1f770f;
+  background-color: #1f770f;
+  color: black;
   text-decoration: none;
   border-radius: 10px;
   -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 .back-button:hover {
-  background-color: #262626;
+  background-color: #31bb18;
 }
 
 /*# sourceMappingURL=main.css.map */

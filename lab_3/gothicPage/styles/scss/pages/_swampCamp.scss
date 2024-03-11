@@ -2,16 +2,26 @@
 
 .swamp-camp-page {
     margin: 0 auto;
-    padding: 10px 15vw;
     background: $swamp-camp-background-gradient;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    .content {
+        margin-top: 20px;
+        width: 60%;
+    }
 }
   
 .header {
+    width: 100%;
+    top: 0;
     text-align: center;
+    background-color: black;
+    color: $swamp-camp-medium-color;
+    position: sticky;
+    border-bottom: 5px solid $swamp-camp-medium-color;
 }
   
 .main-image {
@@ -56,6 +66,7 @@
     align-items: center;
     flex-direction: column;
     background-color: $swamp-camp-light-color;
+    border-radius: 5%;
 
     img {
       @include responsive-image();
@@ -69,6 +80,7 @@
     align-items: center;
     flex-direction: column;
     background-color: $swamp-camp-light-color;
+    border-radius: 5%;
     
     img {
         @include responsive-image();
@@ -95,17 +107,17 @@ footer {
 
 .back-button {
     position: absolute;
-    top: 30px;
+    top: 40px;
     left: 20px;
     display: inline-block;
     padding: 0.5em 1em;
-    background-color: black; 
-    color: $swamp-camp-medium-color;
+    background-color: $swamp-camp-medium-color; 
+    color: black;
     text-decoration: none;
     border-radius: 10px;
 
     &:hover {
-        background-color: lighten(black, 15%);
+        background-color: lighten($swamp-camp-medium-color, 15%);
     }
 
     // Mixin lub placeholder z dziedziczeniem dla box-shadow, jeśli jest potrzebny
