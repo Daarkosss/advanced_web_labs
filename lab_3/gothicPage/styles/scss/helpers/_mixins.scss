@@ -3,3 +3,8 @@
     align-items: center;
     justify-content: center;
 }
+
+@mixin responsive-image($width: 100%) {
+    width: $width;
+    height: auto;
+}
