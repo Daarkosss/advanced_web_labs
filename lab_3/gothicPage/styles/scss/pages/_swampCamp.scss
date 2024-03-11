@@ -1,75 +1,12 @@
 .swamp-camp-page {
-    margin: 0 auto;
-    background: $swamp-camp-background-gradient;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    .swamp-header {
-        @include header($primary-color, $swamp-camp-medium-color)
-    }
-
-    .content {
-        margin-top: 20px;
-        width: 60%;
-        font-size: 14px;
-    }
+  @include camp-page($swamp-camp-background-gradient, $swamp-camp-medium-color);
 }
   
-.main-image {
-    img {
-        @include responsive-image(100%);
-        display: block;
-        margin-bottom: 10px;
-        border-radius: 5%;
-    }
-}
-
-.section {
+.swamp-section {
   @include section($primary-color, $swamp-camp-medium-color);
   margin-top: 50px;
 }
 
-.gallery {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  color: $swamp-camp-light-color;
-
-  .grid-container {
-    margin-block: 50px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 10px;
-    width: 50%;
-  }
-
-  .single-image-container {
-    width: 25%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    background-color: $primary-color;
-    border-radius: 5%;
-
-    img {
-      @include responsive-image();
-    }
-  }
-
-  .image {
-    width: 65%;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    background-color: $primary-color;
-    border-radius: 5%;
-    
-    img {
-        @include responsive-image();
-      }
-  }
+.swamp-gallery {
+  @include gallery($swamp-camp-light-color);
 }

@@ -5,11 +5,15 @@ $primary-color: #000000;
 $secondary-color: #ffdfaf;
 $home-background-gradient: linear-gradient(to right, #603601, #945f22);
 
-$old-camp-hover-color: #50000d;
-$old-camp-border-color: #880016;
+$new-camp-dark-color: #082981;
+$new-camp-medium-color: #0d3ec4;
+$new-camp-light-color: #1151ff;
+$new-camp-background-gradient: linear-gradient(to right, $new-camp-dark-color, $new-camp-medium-color);
 
-$new-camp-hover-color: #151669;
-$new-camp-border-color: #2224ad;
+$old-camp-dark-color: #5a000f;
+$old-camp-medium-color: #880016;
+$old-camp-light-color: #b3001e;
+$old-camp-background-gradient: linear-gradient(to right, $old-camp-dark-color, $old-camp-medium-color);
 
 $swamp-camp-dark-color: #114308;
 $swamp-camp-medium-color: #1f770f;

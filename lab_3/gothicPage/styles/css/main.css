@@ -12,11 +12,19 @@ h1 {
   font-size: 44px;
 }
 
-.button, .swamp-camp-page .swamp-header .back-button {
+.button, .swamp-camp-page .camp-header .back-button, .old-camp-page .camp-header .back-button, .new-camp-page .camp-header .back-button {
   display: inline-block;
   padding: 0.5em 1em;
   text-decoration: none;
   border-radius: 10%;
+}
+
+.main-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin-bottom: 10px;
+  border-radius: 5%;
 }
 
 #container {
@@ -75,8 +83,8 @@ h1 {
   transition: border-color 0.1s, background-color 0.1s, transform 0.3s;
 }
 #newCamp:hover {
-  border-color: #2224ad;
-  background-color: #2224ad;
+  border-color: #0d3ec4;
+  background-color: #0d3ec4;
   transform: scale(1.05);
 }
 #newCamp img {
@@ -118,6 +126,240 @@ h1 {
   padding: 10px 0;
 }
 
+.new-camp-page {
+  margin: 0 auto;
+  background: linear-gradient(to right, #082981, #0d3ec4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.new-camp-page .camp-header {
+  width: 100%;
+  top: 0;
+  text-align: center;
+  background-color: #000000;
+  color: #0d3ec4;
+  padding: 5px 0px;
+  position: sticky;
+  border-bottom: 5px solid #0d3ec4;
+}
+.new-camp-page .camp-header .title, .new-camp-page .camp-header .content {
+  box-sizing: border-box;
+}
+.new-camp-page .camp-header .title {
+  font-size: 34px;
+  background-color: #000000;
+}
+.new-camp-page .camp-header .content {
+  width: 100%;
+  font-size: 16px;
+  background-color: #0e41ce;
+  color: #000000;
+  padding: 20px;
+}
+.new-camp-page .camp-header .back-button {
+  position: absolute;
+  top: 40px;
+  left: 20px;
+  background-color: #0d3ec4;
+  color: #000000;
+}
+.new-camp-page .camp-header .back-button:hover {
+  background-color: #2c61f1;
+}
+.new-camp-page .camp-header .music {
+  position: absolute;
+  top: 30px;
+  right: 20px;
+}
+.new-camp-page .content {
+  margin-top: 20px;
+  width: 60%;
+  font-size: 14px;
+}
+
+.new-section {
+  width: 100%;
+  top: 0;
+  text-align: center;
+  background-color: #000000;
+  color: #0d3ec4;
+  padding: 5px 0px;
+  margin-top: 50px;
+}
+.new-section .title, .new-section .content {
+  box-sizing: border-box;
+}
+.new-section .title {
+  font-size: 34px;
+  background-color: #000000;
+}
+.new-section .content {
+  width: 100%;
+  font-size: 16px;
+  background-color: #0e41ce;
+  color: #000000;
+  padding: 20px;
+}
+
+.new-gallery {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  color: #1151ff;
+}
+.new-gallery .grid-container {
+  margin-block: 50px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+  width: 50%;
+}
+.new-gallery .single-image-container {
+  width: 25%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: #000000;
+  border-radius: 5%;
+}
+.new-gallery .single-image-container img {
+  width: 100%;
+  height: auto;
+}
+.new-gallery .image {
+  width: 65%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: #000000;
+  border-radius: 5%;
+}
+.new-gallery .image img {
+  width: 100%;
+  height: auto;
+}
+
+.old-camp-page {
+  margin: 0 auto;
+  background: linear-gradient(to right, #5a000f, #880016);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.old-camp-page .camp-header {
+  width: 100%;
+  top: 0;
+  text-align: center;
+  background-color: #000000;
+  color: #880016;
+  padding: 5px 0px;
+  position: sticky;
+  border-bottom: 5px solid #880016;
+}
+.old-camp-page .camp-header .title, .old-camp-page .camp-header .content {
+  box-sizing: border-box;
+}
+.old-camp-page .camp-header .title {
+  font-size: 34px;
+  background-color: #000000;
+}
+.old-camp-page .camp-header .content {
+  width: 100%;
+  font-size: 16px;
+  background-color: #920018;
+  color: #000000;
+  padding: 20px;
+}
+.old-camp-page .camp-header .back-button {
+  position: absolute;
+  top: 40px;
+  left: 20px;
+  background-color: #880016;
+  color: #000000;
+}
+.old-camp-page .camp-header .back-button:hover {
+  background-color: #d50022;
+}
+.old-camp-page .camp-header .music {
+  position: absolute;
+  top: 30px;
+  right: 20px;
+}
+.old-camp-page .content {
+  margin-top: 20px;
+  width: 60%;
+  font-size: 14px;
+}
+
+.old-section {
+  width: 100%;
+  top: 0;
+  text-align: center;
+  background-color: #000000;
+  color: #880016;
+  padding: 5px 0px;
+  margin-top: 50px;
+}
+.old-section .title, .old-section .content {
+  box-sizing: border-box;
+}
+.old-section .title {
+  font-size: 34px;
+  background-color: #000000;
+}
+.old-section .content {
+  width: 100%;
+  font-size: 16px;
+  background-color: #920018;
+  color: #000000;
+  padding: 20px;
+}
+
+.old-gallery {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  color: #b3001e;
+}
+.old-gallery .grid-container {
+  margin-block: 50px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+  width: 50%;
+}
+.old-gallery .single-image-container {
+  width: 25%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: #000000;
+  border-radius: 5%;
+}
+.old-gallery .single-image-container img {
+  width: 100%;
+  height: auto;
+}
+.old-gallery .image {
+  width: 65%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: #000000;
+  border-radius: 5%;
+}
+.old-gallery .image img {
+  width: 100%;
+  height: auto;
+}
+
 .swamp-camp-page {
   margin: 0 auto;
   background: linear-gradient(to right, #114308, #1f770f);
@@ -126,7 +368,7 @@ h1 {
   align-items: center;
   justify-content: center;
 }
-.swamp-camp-page .swamp-header {
+.swamp-camp-page .camp-header {
   width: 100%;
   top: 0;
   text-align: center;
@@ -136,31 +378,31 @@ h1 {
   position: sticky;
   border-bottom: 5px solid #1f770f;
 }
-.swamp-camp-page .swamp-header .title, .swamp-camp-page .swamp-header .content {
+.swamp-camp-page .camp-header .title, .swamp-camp-page .camp-header .content {
   box-sizing: border-box;
 }
-.swamp-camp-page .swamp-header .title {
+.swamp-camp-page .camp-header .title {
   font-size: 34px;
   background-color: #000000;
 }
-.swamp-camp-page .swamp-header .content {
+.swamp-camp-page .camp-header .content {
   width: 100%;
   font-size: 16px;
   background-color: #218010;
   color: #000000;
   padding: 20px;
 }
-.swamp-camp-page .swamp-header .back-button {
+.swamp-camp-page .camp-header .back-button {
   position: absolute;
   top: 40px;
   left: 20px;
   background-color: #1f770f;
   color: #000000;
 }
-.swamp-camp-page .swamp-header .back-button:hover {
+.swamp-camp-page .camp-header .back-button:hover {
   background-color: #31bb18;
 }
-.swamp-camp-page .swamp-header .music {
+.swamp-camp-page .camp-header .music {
   position: absolute;
   top: 30px;
   right: 20px;
@@ -171,15 +413,7 @@ h1 {
   font-size: 14px;
 }
 
-.main-image img {
-  width: 100%;
-  height: auto;
-  display: block;
-  margin-bottom: 10px;
-  border-radius: 5%;
-}
-
-.section {
+.swamp-section {
   width: 100%;
   top: 0;
   text-align: center;
@@ -188,14 +422,14 @@ h1 {
   padding: 5px 0px;
   margin-top: 50px;
 }
-.section .title, .section .content {
+.swamp-section .title, .swamp-section .content {
   box-sizing: border-box;
 }
-.section .title {
+.swamp-section .title {
   font-size: 34px;
   background-color: #000000;
 }
-.section .content {
+.swamp-section .content {
   width: 100%;
   font-size: 16px;
   background-color: #218010;
@@ -203,21 +437,21 @@ h1 {
   padding: 20px;
 }
 
-.gallery {
+.swamp-gallery {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   color: #41c53d;
 }
-.gallery .grid-container {
+.swamp-gallery .grid-container {
   margin-block: 50px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 10px;
   width: 50%;
 }
-.gallery .single-image-container {
+.swamp-gallery .single-image-container {
   width: 25%;
   display: flex;
   align-items: center;
@@ -225,11 +459,11 @@ h1 {
   background-color: #000000;
   border-radius: 5%;
 }
-.gallery .single-image-container img {
+.swamp-gallery .single-image-container img {
   width: 100%;
   height: auto;
 }
-.gallery .image {
+.swamp-gallery .image {
   width: 65%;
   overflow: hidden;
   display: flex;
@@ -238,7 +472,7 @@ h1 {
   background-color: #000000;
   border-radius: 5%;
 }
-.gallery .image img {
+.swamp-gallery .image img {
   width: 100%;
   height: auto;
 }

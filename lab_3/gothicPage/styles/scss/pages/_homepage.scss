@@ -21,15 +21,15 @@
   text-decoration:none;
   color: black;
 
-  border: 30px solid transparent; // Początkowo przezroczysta obwódka.
+  border: 30px solid transparent;
   border-bottom-width: 1px;
-  overflow: hidden; // Zapobiega wystawaniu poza granice podczas transformacji.
+  overflow: hidden;
   transition: border-color 0.1s, background-color 0.1s, transform 0.3s;
 
   &:hover {   
     border-color: $border-color;
     background-color: $border-color;
-    transform: scale(1.05); // Lekkie powiększenie podczas hover.
+    transform: scale(1.05);
   }
   
   img {
@@ -48,11 +48,11 @@
 }
 
 #oldCamp{
-  @include camp($old-camp-border-color)
+  @include camp($old-camp-medium-color)
 }
 
 #newCamp{
-  @include camp($new-camp-border-color)
+  @include camp($new-camp-medium-color)
 }
 #swampCamp{
   @include camp($swamp-camp-medium-color)

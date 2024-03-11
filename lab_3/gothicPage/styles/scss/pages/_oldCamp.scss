@@ -1,0 +1,13 @@
+.old-camp-page {
+    @include camp-page($old-camp-background-gradient, $old-camp-medium-color);
+  }
+    
+.old-section {
+    @include section($primary-color, $old-camp-medium-color);
+    margin-top: 50px;
+  }
+  
+.old-gallery {
+    @include gallery($old-camp-light-color);
+  }
+  

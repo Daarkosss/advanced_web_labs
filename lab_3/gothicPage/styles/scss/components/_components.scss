@@ -55,3 +55,74 @@
         right: 20px;
     }
 }
+
+.main-image {
+    img {
+        @include responsive-image(100%);
+        display: block;
+        margin-bottom: 10px;
+        border-radius: 5%;
+    }
+}
+
+@mixin gallery($camp-light-color) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    color: $camp-light-color;
+  
+    .grid-container {
+      margin-block: 50px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 10px;
+      width: 50%;
+    }
+  
+    .single-image-container {
+      width: 25%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      background-color: $primary-color;
+      border-radius: 5%;
+  
+      img {
+        @include responsive-image();
+      }
+    }
+  
+    .image {
+      width: 65%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      background-color: $primary-color;
+      border-radius: 5%;
+      
+      img {
+          @include responsive-image();
+        }
+    }
+}
+  
+@mixin camp-page($camp-background-gradient, $camp-medium-color) {
+    margin: 0 auto;
+    background: $camp-background-gradient;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .camp-header {
+        @include header($primary-color, $camp-medium-color)
+    }
+
+    .content {
+        margin-top: 20px;
+        width: 60%;
+        font-size: 14px;
+    }
+}
