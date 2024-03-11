@@ -27,32 +27,31 @@
         margin-bottom: 10px;
         border-radius: 5%;
     }
+}
 
-    p {
-        text-align: center;
-        background-color: $secondary-color;
-        padding: 20px;
-        border-radius: 5%;
-    }
+.section {
+  @include section($primary-color, $swamp-camp-medium-color);
+  margin-top: 50px;
 }
 
 @mixin responsive-image($width: 100%) {
     width: $width;
     height: auto;
 }
-  
 
 .gallery {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
+  color: $swamp-camp-light-color;
 
   .grid-container {
+    margin-block: 50px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 10px;
-    width: 50%; // Grid 2x2 zajmuje połowę szerokości kontenera nadrzędnego
+    width: 50%;
   }
 
   .single-image-container {
@@ -60,7 +59,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    background-color: $swamp-camp-light-color;
+    background-color: $primary-color;
     border-radius: 5%;
 
     img {
@@ -74,21 +73,11 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    background-color: $swamp-camp-light-color;
+    background-color: $primary-color;
     border-radius: 5%;
     
     img {
         @include responsive-image();
       }
   }
-}
-
-footer {
-    margin-top: 50px;
-    width: 100%;
-    text-align: center;
-    font-size: 20px;
-    background-color: $secondary-color;
-    padding: 5px;
-    border-radius: 5%;
 }

@@ -19,7 +19,7 @@ h1 {
   padding: 20px;
 }
 
-.title {
+.homepage-title {
   background-color: #ffdfaf;
   border: 2px solid #000000;
   border-radius: 5%;
@@ -126,8 +126,19 @@ h1 {
   text-align: center;
   background-color: #000000;
   color: #1f770f;
+  padding: 5px 0px;
   position: sticky;
   border-bottom: 5px solid #1f770f;
+}
+.swamp-camp-page .swamp-header .title {
+  font-size: 34px;
+  background-color: #000000;
+}
+.swamp-camp-page .swamp-header .content {
+  width: 100%;
+  font-size: 16px;
+  background-color: #218010;
+  color: #000000;
 }
 .swamp-camp-page .swamp-header .back-button {
   position: absolute;
@@ -139,8 +150,6 @@ h1 {
   color: #000000;
   text-decoration: none;
   border-radius: 10px;
-  -webkit-box-shadow: 2px 2px 5px black;
-  box-shadow: 2px 2px 5px black;
 }
 .swamp-camp-page .swamp-header .back-button:hover {
   background-color: #31bb18;
@@ -163,11 +172,25 @@ h1 {
   margin-bottom: 10px;
   border-radius: 5%;
 }
-.main-image p {
+
+.section {
+  width: 100%;
+  top: 0;
   text-align: center;
-  background-color: #ffdfaf;
-  padding: 20px;
-  border-radius: 5%;
+  background-color: #000000;
+  color: #1f770f;
+  padding: 5px 0px;
+  margin-top: 50px;
+}
+.section .title {
+  font-size: 34px;
+  background-color: #000000;
+}
+.section .content {
+  width: 100%;
+  font-size: 16px;
+  background-color: #218010;
+  color: #000000;
 }
 
 .gallery {
@@ -175,8 +198,10 @@ h1 {
   justify-content: center;
   align-items: center;
   width: 100%;
+  color: #41c53d;
 }
 .gallery .grid-container {
+  margin-block: 50px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 10px;
@@ -187,7 +212,7 @@ h1 {
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: #41c53d;
+  background-color: #000000;
   border-radius: 5%;
 }
 .gallery .single-image-container img {
@@ -200,22 +225,12 @@ h1 {
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: #41c53d;
+  background-color: #000000;
   border-radius: 5%;
 }
 .gallery .image img {
   width: 100%;
   height: auto;
-}
-
-footer {
-  margin-top: 50px;
-  width: 100%;
-  text-align: center;
-  font-size: 20px;
-  background-color: #ffdfaf;
-  padding: 5px;
-  border-radius: 5%;
 }
 
 /*# sourceMappingURL=main.css.map */

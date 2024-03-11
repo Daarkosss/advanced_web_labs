@@ -1,14 +1,26 @@
-@mixin box-shadow($x, $y, $blur, $color) {
-    -webkit-box-shadow: $x $y $blur $color;
-    box-shadow: $x $y $blur $color;
-}
-
-@mixin header($background-color, $color) {
+@mixin section($background-color, $color) {
     width: 100%;
     top: 0;
     text-align: center;
     background-color: $background-color;
     color: $color;
+
+    .title {
+        font-size: 34px;
+        background-color: $background-color;
+    }
+
+    .content {
+        width: 100%;
+        font-size: 16px;
+        background-color: lighten($color, 2%);
+        color: $background-color;
+    }
+    padding: 5px 0px;
+}
+
+@mixin header($background-color, $color) {
+    @include section($background-color, $color);
     position: sticky;
     border-bottom: 5px solid $color;
 
@@ -26,8 +38,6 @@
         &:hover {
             background-color: lighten($color, 15%);
         }
-    
-        @include box-shadow(2px, 2px, 5px, black);
     }
 
     .music {
