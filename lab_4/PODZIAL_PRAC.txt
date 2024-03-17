@@ -1,0 +1,10 @@
+Szymon:
+- Google Maps
+- Carousel i kontrolki Cards
+- Formularz
+
+Karol:
+- Wykresy podrozy
+- FAQ
+- Cytat
+- Tekst ze zdjeciem
