@@ -201,23 +201,76 @@
         </div>         
         <!--Grid row-->       
       </section>       
-      <!--Section: LastTravels-->   
-           
-      <hr class="my-5">        
-      <!--Section: Gallery-->       
-      <section id="gallery">       
+      <!--Section: LastTravels-->      
+    </div>
 
-      </section>       
-      <!--Section: Gallery-->        
-      <hr class="my-5">        
-      <!--Section: Contact-->       
-      <section id="contact">       
+    <!-- Section with image and text 3:1 -->
+    <section class="container my-5">
+      <div class="row">
+        <!-- Zdjęcie -->
+        <div class="col-md-9">
+          <img src="img/ulu-mulu.webp" class="img-fluid" alt="Przykładowe zdjęcie">
+        </div>
+        <!-- Tekst -->
+        <div class="col-md-3">
+          <h2>Ulu - mulu</h2>
+          <p>Ulu mulu. Mulu ulu. Ulu mulu. Mulu ulu. Ulu mulu. Mulu ulu. Ulu mulu. Mulu ulu. Ulu mulu.</p>
+        </div>
+      </div>
+    </section>
 
-      </section>       
-      <!--Section: Contact-->    
-    </div> 
+    <!-- Blockquote section -->
+    <section class="container my-5">
+      <blockquote class="blockquote bq-primary">
+        <p class="bq-title">Cytat</p>
+        <p>
+          Dawno temu Śniący przybył tutaj i zesłał ludziom proroczą wizję. Jednak wielu z nich nie chciało zobaczyć jego potęgi, nie chciało uwierzyć.
+          Zaślepiała ich chciwość rudy. Tylko Y'Berion wraz z garstką towarzyszy usłuchał głosu Śniącego. Tak powstało bractwo.
+          W chwili, gdy po raz pierwszy wstąpili na ścieżkę zbawienia, powstał również pierwszy krąg. Magia runiczna staje się zrozumiała dla każdego, kto podąża śladem Śniącego.
+          Śniący wskazał Y'Berionowi i jego uczniom miejsce, w którym mieli się osiedlić. Wybrani pracowali bez przerwy, dniem i nocą,
+          nie patrząc na niebezpieczeństwa i zmęczenie. Co chwila przybywali do obozu nowi ludzie, gotowi wysłuchać nauk Śniącego.
+        </p>
+      </blockquote>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="container my-5">
+      <div class="accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
+      
+        <!-- Pierwsza karta -->
+        <div class="card">
+          <div class="card-header" role="tab" id="headingOne">
+            <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              <h5 class="mb-0">Pytanie numer jeden <i class="fas fa-angle-down rotate-icon"></i></h5>
+            </a>
+          </div>
+          <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordionEx">
+            <div class="card-body">
+              Odpowiedź na pytanie numer jeden.
+            </div>
+          </div>
+        </div>
+        
+        <!-- Druga karta -->
+        <div class="card">
+          <div class="card-header" role="tab" id="headingTwo">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              <h5 class="mb-0">Pytanie numer dwa <i class="fas fa-angle-down rotate-icon"></i></h5>
+            </a>
+          </div>
+          <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordionEx">
+            <div class="card-body">
+              Odpowiedź na pytanie numer dwa.
+            </div>
+          </div>
+        </div>
+        
+        <!-- Dodaj więcej kart zgodnie z potrzebami -->
+        
+      </div>
+    </section>
   </main> 
-  <!--Main layout--> 
+  <!--Main layout-->
 
   <!-- jQuery -->
   <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -228,7 +281,7 @@
   <!-- MDB core JavaScript -->
   <script type="text/javascript" src="js/mdb.min.js"></script>
   <!-- Your custom scripts (optional) -->
-  <script type="text/javascript"></script>
+  <script type="text/javascript" src="js/script.js"></script>
 
 </body>
 </html>
