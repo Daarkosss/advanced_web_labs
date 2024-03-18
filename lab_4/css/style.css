@@ -12,3 +12,36 @@ header,
     -o-background-size: cover; 
     background-size: cover;
 }
+
+
+
+.center-img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+  max-width: 800px;
+}
+
+.center-carousel {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  max-width: 800px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(100%);
+}
+
+/* Zmienia kolor kropek (wskaźników) karuzeli na czarny */
+.carousel-indicators li {
+  background-color: black; /* Ustawia kolor tła na czarny */
+}
+
+/* Dla aktywnego wskaźnika */
+.carousel-indicators .active {
+  background-color: black; /* Zapewnia, że aktywny wskaźnik również jest czarny */
+}
