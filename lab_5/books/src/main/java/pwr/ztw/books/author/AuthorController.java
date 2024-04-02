@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/api/v1/author")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class AuthorController {
     private final AuthorService authorService;
 
     @Operation(summary = "Get author by id")
-    @GetMapping("/{id}")
+    @GetMapping("/author/{id}")
     public ResponseEntity<?> getAuthorById(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(authorService.getAuthorById(id));
@@ -29,19 +29,19 @@ public class AuthorController {
     }
 
     @Operation(summary = "Get all authors")
-    @GetMapping("/all")
+    @GetMapping("/authors")
     public ResponseEntity<?> getAllAuthors(@PageableDefault(page = 0, size = 20) Pageable pageable) {
         return ResponseEntity.ok(authorService.getAllAuthors(pageable));
     }
 
     @Operation(summary = "Create author, by providing basic author data")
-    @PostMapping("/create")
+    @PostMapping("/author/create")
     public ResponseEntity<?> createAuthor(@RequestBody AuthorDTO author) {
         return ResponseEntity.ok().body(authorService.createAuthor(author));
     }
 
     @Operation(summary = "Update author, by providing id and new author data. Id modification is not allowed.")
-    @PutMapping("/{id}")
+    @PutMapping("/author/{id}")
     public ResponseEntity<?> updateAuthor(@PathVariable Long id, @RequestBody AuthorDTO author) {
         try {
             return ResponseEntity.ok(authorService.updateAuthor(id, author));
@@ -51,7 +51,7 @@ public class AuthorController {
     }
 
     @Operation(summary = "Delete author by id")
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/author/{id}")
     public ResponseEntity<?> deleteAuthor(@PathVariable Long id) {
         try {
             authorService.deleteAuthor(id);

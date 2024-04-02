@@ -64,19 +64,6 @@ public class BookService {
         oldBook.setAuthor(author);
         return bookRepository.save(oldBook);
     }
-
-    public Page<AuthorSimpleFormatDTO> getAllAuthors(Pageable pageable, String param) {
-        param = param.replace("%20", " ");
-        String finalParam = param;
-        List<AuthorSimpleFormatDTO> authors = authorRepository.findAll().stream()
-                .filter(author -> (author.getFirstName() + " " + author.getLastName()).contains(finalParam))
-                .map(Author::toAuthorSimpleFormatDTO)
-                .collect(Collectors.toList());
-
-        int start = (int) pageable.getOffset();
-        int end = Math.min((start + pageable.getPageSize()), authors.size());
-        return new PageImpl<>(authors.subList(start, end), pageable, authors.size());
-    }
 }
 
 
