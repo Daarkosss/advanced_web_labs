@@ -38,12 +38,4 @@ public class Author {
                 .birthDate(birthDate)
                 .build();
     }
-
-    public AuthorSimpleFormatDTO toAuthorSimpleFormatDTO() {
-        return AuthorSimpleFormatDTO.builder()
-                .id(id)
-                .firstName(firstName)
-                .lastName(lastName)
-                .build();
-    }
 }

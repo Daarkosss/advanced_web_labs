@@ -33,12 +33,12 @@ public class BorrowService {
         Book book = bookRepository.findById(borrowDTO.getBookId()).orElseThrow(() -> new IllegalArgumentException("Book not found"));
         if (isBookAvailableForBorrow(book)) {
             if (borrowDTO.getReturnDate().isBefore(LocalDate.now())) {
-                throw new IllegalArgumentException("Return date can't be in the past");
+                throw new IllegalArgumentException("Return date cannot be from the past");
             }
             Borrow borrow = borrowDTO.toBorrow(book.toBookDTO());
             return borrowRepository.save(borrow);
         } else {
-            throw new IllegalArgumentException("Book is currently not available for borrow");
+            throw new IllegalArgumentException("The book is not available for borrowing, because it is currently borrowed");
         }
     }
 
@@ -57,7 +57,7 @@ public class BorrowService {
     public Borrow updateDueDate(Long id, NewReturnDateDTO newDate) {
         Borrow borrow = borrowRepository.findById(id).orElseThrow(() -> new RuntimeException("Borrow not found"));
         if (newDate.newReturnDate.isBefore(LocalDate.now())) {
-            throw new RuntimeException("Due date can't be in the past");
+            throw new RuntimeException("Due date cannot be from the past");
         }
         borrow.setReturnDate(newDate.newReturnDate);
         return borrowRepository.save(borrow);

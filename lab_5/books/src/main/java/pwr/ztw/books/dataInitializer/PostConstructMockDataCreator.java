@@ -30,14 +30,15 @@ public class PostConstructMockDataCreator {
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
     private final Faker faker = new Faker(new Locale("pl"));
-    private final Integer NUMBER_OF_ENTITIES_TO_MOCK = 45;
+    private final Integer NUMBER_OF_ENTITIES_TO_MOCK = 30;
 
 
     @PostConstruct
     public void init() {
-        log.info("Creating mock data in database...");
+        log.info("Creating mock data and saving in database...");
         initializeData();
         log.info("Mock data successfully created!");
+        log.info("Mock data will be removed when the server is stopped");
     }
 
     private void initializeData() {
@@ -63,7 +64,7 @@ public class PostConstructMockDataCreator {
                 .mapToObj(i -> Book.builder()
                         .title(faker.book().title())
                         .author(authors.get(i - 1))
-                        .pages(faker.number().numberBetween(50, 500))
+                        .pages(faker.number().numberBetween(100, 800))
                         .releaseDate(faker.date().past(365, TimeUnit.DAYS).toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
                         .build())
                 .collect(Collectors.toList());
@@ -72,11 +73,11 @@ public class PostConstructMockDataCreator {
 
     private void createBorrows(List<Book> books) {
         IntStream.rangeClosed(1, NUMBER_OF_ENTITIES_TO_MOCK).forEach(i -> {
-            LocalDate borrowDate = LocalDate.now().minusDays(faker.number().numberBetween(10, 40));
+            LocalDate borrowDate = LocalDate.now().minusDays(faker.number().numberBetween(7, 60));
             Borrow borrow = Borrow.builder()
                     .book(books.get(i - 1))
                     .borrowDate(borrowDate)
-                    .returnDate(borrowDate.plusDays(faker.number().numberBetween(1, 30)))
+                    .returnDate(borrowDate.plusDays(faker.number().numberBetween(2, 60)))
                     .build();
             borrowRepository.save(borrow);
         });

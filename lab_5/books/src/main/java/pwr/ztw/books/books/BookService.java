@@ -2,18 +2,14 @@ package pwr.ztw.books.books;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pwr.ztw.books.author.Author;
-import pwr.ztw.books.author.AuthorDTO;
 import pwr.ztw.books.author.AuthorRepository;
-import pwr.ztw.books.author.AuthorSimpleFormatDTO;
 import pwr.ztw.books.borrow.Borrow;
 import pwr.ztw.books.borrow.BorrowRepository;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
