@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class BookUpdateDTO {
     private String title;
-    private AuthorDTO author;
+    private Long authorId;
     private Integer pages;
     private LocalDate releaseDate;
 }

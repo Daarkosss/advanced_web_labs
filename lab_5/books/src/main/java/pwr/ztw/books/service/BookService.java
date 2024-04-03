@@ -59,7 +59,7 @@ public class BookService {
         oldBook.setPages(book.getPages());
         oldBook.setReleaseDate(book.getReleaseDate());
 
-        Author author = authorRepository.findById(5L)
+        Author author = authorRepository.findById(book.getAuthorId())
                 .orElseThrow(() -> new RuntimeException("Author not found"));
 
         oldBook.setAuthor(author);
