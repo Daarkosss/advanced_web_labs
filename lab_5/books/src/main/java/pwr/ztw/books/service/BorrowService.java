@@ -1,16 +1,20 @@
-package pwr.ztw.books.borrow;
+package pwr.ztw.books.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import pwr.ztw.books.books.Book;
-import pwr.ztw.books.books.BookRepository;
+import pwr.ztw.books.entity.Book;
+import pwr.ztw.books.repository.BookRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import pwr.ztw.books.entity.Borrow;
+import pwr.ztw.books.repository.BorrowRepository;
+import pwr.ztw.books.dto.AvailableBooksForBorrowDTO;
+import pwr.ztw.books.dto.BorrowDTO;
+import pwr.ztw.books.dto.NewBorrowDTO;
+import pwr.ztw.books.dto.NewReturnDateDTO;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,10 +60,10 @@ public class BorrowService {
 
     public Borrow updateDueDate(Long id, NewReturnDateDTO newDate) {
         Borrow borrow = borrowRepository.findById(id).orElseThrow(() -> new RuntimeException("Borrow not found"));
-        if (newDate.newReturnDate.isBefore(LocalDate.now())) {
+        if (newDate.getNewReturnDate().isBefore(LocalDate.now())) {
             throw new RuntimeException("Due date cannot be from the past");
         }
-        borrow.setReturnDate(newDate.newReturnDate);
+        borrow.setReturnDate(newDate.getNewReturnDate());
         return borrowRepository.save(borrow);
     }
 

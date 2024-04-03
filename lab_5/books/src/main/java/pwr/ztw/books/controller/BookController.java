@@ -1,4 +1,4 @@
-package pwr.ztw.books.books;
+package pwr.ztw.books.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import pwr.ztw.books.entity.Book;
+import pwr.ztw.books.service.BookService;
+import pwr.ztw.books.dto.BookDTO;
+import pwr.ztw.books.dto.BookUpdateDTO;
+import pwr.ztw.books.dto.NewBookDTO;
 
 @RestController
 @RequestMapping("/api/v1")

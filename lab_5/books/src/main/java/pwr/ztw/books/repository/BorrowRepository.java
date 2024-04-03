@@ -1,12 +1,9 @@
-package pwr.ztw.books.borrow;
+package pwr.ztw.books.repository;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import pwr.ztw.books.books.Book;
+import pwr.ztw.books.entity.Book;
+import pwr.ztw.books.entity.Borrow;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public interface BorrowRepository extends JpaRepository<Borrow, Long> {

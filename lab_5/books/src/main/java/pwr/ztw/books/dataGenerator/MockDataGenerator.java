@@ -1,4 +1,4 @@
-package pwr.ztw.books.dataInitializer;
+package pwr.ztw.books.dataGenerator;
 
 import com.github.javafaker.Faker;
 import jakarta.annotation.PostConstruct;
@@ -6,12 +6,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-import pwr.ztw.books.author.Author;
-import pwr.ztw.books.author.AuthorRepository;
-import pwr.ztw.books.books.Book;
-import pwr.ztw.books.books.BookRepository;
-import pwr.ztw.books.borrow.Borrow;
-import pwr.ztw.books.borrow.BorrowRepository;
+import pwr.ztw.books.entity.Author;
+import pwr.ztw.books.repository.AuthorRepository;
+import pwr.ztw.books.entity.Book;
+import pwr.ztw.books.repository.BookRepository;
+import pwr.ztw.books.entity.Borrow;
+import pwr.ztw.books.repository.BorrowRepository;
 
 import java.time.LocalDate;
 import java.time.ZoneId;

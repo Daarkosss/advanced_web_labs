@@ -1,11 +1,11 @@
-package pwr.ztw.books.borrow;
+package pwr.ztw.books.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pwr.ztw.books.books.Book;
+import pwr.ztw.books.dto.BorrowDTO;
 
 import java.time.LocalDate;
 

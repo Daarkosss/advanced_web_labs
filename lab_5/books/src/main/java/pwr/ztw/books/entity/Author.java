@@ -1,12 +1,12 @@
-package pwr.ztw.books.author;
+package pwr.ztw.books.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pwr.ztw.books.books.Book;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import pwr.ztw.books.dto.AuthorDTO;
 
 
 import java.time.LocalDate;

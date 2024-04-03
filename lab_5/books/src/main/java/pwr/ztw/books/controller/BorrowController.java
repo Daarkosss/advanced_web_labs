@@ -1,4 +1,4 @@
-package pwr.ztw.books.borrow;
+package pwr.ztw.books.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -9,8 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
+import pwr.ztw.books.service.BorrowService;
+import pwr.ztw.books.dto.AvailableBooksForBorrowDTO;
+import pwr.ztw.books.dto.BorrowDTO;
+import pwr.ztw.books.dto.NewBorrowDTO;
+import pwr.ztw.books.dto.NewReturnDateDTO;
 
 
 @RestController

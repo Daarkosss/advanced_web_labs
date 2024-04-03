@@ -1,13 +1,18 @@
-package pwr.ztw.books.books;
+package pwr.ztw.books.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import pwr.ztw.books.author.Author;
-import pwr.ztw.books.author.AuthorRepository;
-import pwr.ztw.books.borrow.Borrow;
-import pwr.ztw.books.borrow.BorrowRepository;
+import pwr.ztw.books.entity.Author;
+import pwr.ztw.books.repository.AuthorRepository;
+import pwr.ztw.books.entity.Book;
+import pwr.ztw.books.repository.BookRepository;
+import pwr.ztw.books.entity.Borrow;
+import pwr.ztw.books.repository.BorrowRepository;
+import pwr.ztw.books.dto.BookDTO;
+import pwr.ztw.books.dto.BookUpdateDTO;
+import pwr.ztw.books.dto.NewBookDTO;
 
 import java.util.List;
 

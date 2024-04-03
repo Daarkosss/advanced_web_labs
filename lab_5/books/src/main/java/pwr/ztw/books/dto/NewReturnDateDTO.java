@@ -1,4 +1,4 @@
-package pwr.ztw.books.borrow;
+package pwr.ztw.books.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
