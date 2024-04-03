@@ -71,7 +71,7 @@ public class BorrowController {
 
     @Operation(summary = "Search for available books by title or author")
     @GetMapping("/borrow/search")
-    public ResponseEntity<Page<AvailableBooksForBorrowDTO>> searchBorrows(@PageableDefault(page = 0, size = 10) Pageable pageable, @RequestParam String param) {
+    public ResponseEntity<Page<AvailableBooksForBorrowDTO>> searchBorrows(@PageableDefault(page = 0, size = 10) Pageable pageable, @RequestParam(required = false) String param) {
         return ResponseEntity.ok(borrowService.searchBooks(pageable, param));
     }
 }

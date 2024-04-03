@@ -17,6 +17,7 @@ import pwr.ztw.books.dto.NewReturnDateDTO;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @Service
@@ -69,10 +70,16 @@ public class BorrowService {
 
     public Page<AvailableBooksForBorrowDTO> searchBooks(Pageable pageable, String param) {
         List<Book> allBooks = bookRepository.findAll();
-        List<AvailableBooksForBorrowDTO> availableBooks = allBooks.stream()
-                .filter(book -> book.getTitle().contains(param) ||
-                        book.getAuthor().getFirstName().contains(param) ||
-                        book.getAuthor().getLastName().contains(param))
+        Stream<Book> bookStream = allBooks.stream();
+
+        if (param != null && !param.isEmpty()) {
+            bookStream = bookStream.filter(book ->
+                    book.getTitle().contains(param) ||
+                            book.getAuthor().getFirstName().contains(param) ||
+                            book.getAuthor().getLastName().contains(param));
+        }
+
+        List<AvailableBooksForBorrowDTO> availableBooks = bookStream
                 .filter(this::isBookAvailableForBorrow)
                 .map(Book::toAvailableBooksForBorrowDTO)
                 .collect(Collectors.toList());
