@@ -74,15 +74,16 @@ public class BorrowService {
 
         if (param != null && !param.isEmpty()) {
             bookStream = bookStream.filter(book ->
-                    book.getTitle().contains(param) ||
-                            book.getAuthor().getFirstName().contains(param) ||
-                            book.getAuthor().getLastName().contains(param));
+                book.getTitle().contains(param) ||
+                book.getAuthor().getFirstName().contains(param) ||
+                book.getAuthor().getLastName().contains(param) ||
+                param.equals(book.getAuthor().getFirstName() + ' ' + book.getAuthor().getLastName()));
         }
 
         List<AvailableBooksForBorrowDTO> availableBooks = bookStream
-                .filter(this::isBookAvailableForBorrow)
-                .map(Book::toAvailableBooksForBorrowDTO)
-                .collect(Collectors.toList());
+            .filter(this::isBookAvailableForBorrow)
+            .map(Book::toAvailableBooksForBorrowDTO)
+            .collect(Collectors.toList());
 
         int start = (int) pageable.getOffset();
         int end = Math.min((start + pageable.getPageSize()), availableBooks.size());
