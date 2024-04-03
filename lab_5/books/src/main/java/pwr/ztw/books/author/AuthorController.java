@@ -2,7 +2,6 @@ package pwr.ztw.books.author;
 
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthorController {
     private final AuthorService authorService;
 
-    @Operation(summary = "Get author by id")
+    @Operation(summary = "Get author by provided id")
     @GetMapping("/author/{id}")
     public ResponseEntity<?> getAuthorById(@PathVariable Long id) {
         try {
@@ -34,13 +33,13 @@ public class AuthorController {
         return ResponseEntity.ok(authorService.getAllAuthors(pageable));
     }
 
-    @Operation(summary = "Create author, by providing basic author data")
+    @Operation(summary = "Create author based on author data")
     @PostMapping("/author/create")
     public ResponseEntity<?> createAuthor(@RequestBody AuthorDTO author) {
         return ResponseEntity.ok().body(authorService.createAuthor(author));
     }
 
-    @Operation(summary = "Update author, by providing id and new author data. Id modification is not allowed.")
+    @Operation(summary = "Update author with provided id with new author data.")
     @PutMapping("/author/{id}")
     public ResponseEntity<?> updateAuthor(@PathVariable Long id, @RequestBody AuthorDTO author) {
         try {
@@ -50,7 +49,7 @@ public class AuthorController {
         }
     }
 
-    @Operation(summary = "Delete author by id")
+    @Operation(summary = "Delete author by provided id")
     @DeleteMapping("/author/{id}")
     public ResponseEntity<?> deleteAuthor(@PathVariable Long id) {
         try {

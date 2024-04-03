@@ -14,7 +14,7 @@ import org.springframework.data.web.PageableDefault;
 public class BookController {
     private final BookService bookService;
 
-    @Operation(summary = "Get book by id")
+    @Operation(summary = "Get book by provided id")
     @GetMapping("/book/{id}")
     public ResponseEntity<?> getBookById(@PathVariable Long id) {
         try {
@@ -29,7 +29,7 @@ public class BookController {
     public ResponseEntity<Page<BookDTO>> getAllBooks(@PageableDefault(page = 0, size = 20) Pageable pageable) {
         return ResponseEntity.ok(bookService.findAllBooks(pageable));
     }
-    @Operation(summary = "Create book, by providing basic book data")
+    @Operation(summary = "Create book based on provided book data")
     @PostMapping("/book/create")
     public ResponseEntity<?> createBook(@RequestBody NewBookDTO book) {
         try {
@@ -39,13 +39,13 @@ public class BookController {
         }
     }
 
-    @Operation(summary = "Update book, by providing id and new book data. Id modification is not allowed.")
+    @Operation(summary = "Update book with provided id with new book data.")
     @PatchMapping("/book/{id}")
     public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody BookUpdateDTO book) {
         return ResponseEntity.ok(bookService.updateBook(id, book));
     }
 
-    @Operation(summary = "Delete book by id")
+    @Operation(summary = "Delete book by provided id")
     @DeleteMapping("/book/{id}")
     public ResponseEntity<?> deleteBook(@PathVariable Long id) {
         try {

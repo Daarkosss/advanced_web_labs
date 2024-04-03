@@ -19,7 +19,7 @@ import java.time.LocalDate;
 public class BorrowController {
     private final BorrowService borrowService;
 
-    @Operation(summary = "Get borrow details by borrow id")
+    @Operation(summary = "Get borrow details by provided borrow id")
     @GetMapping("/borrow/{id}")
     public ResponseEntity<?> getBorrowById(@PathVariable Long id) {
         try {
@@ -29,13 +29,13 @@ public class BorrowController {
         }
     }
 
-    @Operation(summary = "Get all borrows (from past and present)")
+    @Operation(summary = "Get all borrows, also from the past")
     @GetMapping("/borrows")
     public ResponseEntity<Page<BorrowDTO>> getAllBorrows(@PageableDefault(page = 0, size = 20) Pageable pageable) {
         return ResponseEntity.ok(borrowService.findAllBorrows(pageable));
     }
 
-    @Operation(summary = "Borrow book, by providing borrow data (book can't be already borrowed)")
+    @Operation(summary = "Borrow book by providing borrowing data (book cannot be currently borrowed)")
     @PostMapping("/borrow/borrow-book")
     public ResponseEntity<?> borrowBook(@RequestBody NewBorrowDTO borrowDTO) {
         try {
@@ -45,7 +45,7 @@ public class BorrowController {
         }
     }
 
-    @Operation(summary = "Update return date (you can only update return date to future date)")
+    @Operation(summary = "Update return date (you can only set future date)")
     @PatchMapping("/borrow/{id}")
     public ResponseEntity<?> updateBorrowData(@PathVariable Long id, @RequestBody NewReturnDateDTO newReturnDate) {
         try {
@@ -55,7 +55,7 @@ public class BorrowController {
         }
     }
 
-    @Operation(summary = "Delete borrow by id")
+    @Operation(summary = "Delete borrow by provided borrow id")
     @DeleteMapping("/borrow/{id}")
     public ResponseEntity<?> deleteBorrow(@PathVariable Long id) {
         try {
@@ -66,7 +66,7 @@ public class BorrowController {
         }
     }
 
-    @Operation(summary = "Search avaliable books by title or author")
+    @Operation(summary = "Search for available books by title or author")
     @GetMapping("/borrow/search")
     public ResponseEntity<Page<AvailableBooksForBorrowDTO>> searchBorrows(@PageableDefault(page = 0, size = 10) Pageable pageable, @RequestParam String param) {
         return ResponseEntity.ok(borrowService.searchBooks(pageable, param));

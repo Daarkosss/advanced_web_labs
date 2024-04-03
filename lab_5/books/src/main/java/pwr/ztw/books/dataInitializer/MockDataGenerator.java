@@ -25,23 +25,23 @@ import java.util.stream.IntStream;
 @Slf4j
 @Profile("dev")
 @RequiredArgsConstructor
-public class PostConstructMockDataCreator {
+public class MockDataGenerator {
     private final BorrowRepository borrowRepository;
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
-    private final Faker faker = new Faker(new Locale("pl"));
+    private final Faker faker = new Faker(Locale.forLanguageTag("pl"));
     private final Integer NUMBER_OF_ENTITIES_TO_MOCK = 30;
 
 
     @PostConstruct
     public void init() {
         log.info("Creating mock data and saving in database...");
-        initializeData();
+        generateMockData();
         log.info("Mock data successfully created!");
         log.info("Mock data will be removed when the server is stopped");
     }
 
-    private void initializeData() {
+    private void generateMockData() {
         List<Author> authors = createAuthors();
         List<Book> books = createBooks(authors);
         createBorrows(books);
