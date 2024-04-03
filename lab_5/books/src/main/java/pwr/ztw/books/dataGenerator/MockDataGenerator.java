@@ -51,26 +51,26 @@ public class MockDataGenerator {
 
     private List<Author> createAuthors() {
         List<Author> authors = IntStream.rangeClosed(1, NUMBER_OF_ENTITIES_TO_MOCK)
-                .mapToObj(i -> Author.builder()
-                        .firstName(faker.name().firstName())
-                        .lastName(faker.name().lastName())
-                        .country(faker.country().name())
-                        .birthDate(faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
-                        .build())
-                .collect(Collectors.toList());
+            .mapToObj(i -> Author.builder()
+                .firstName(faker.name().firstName())
+                .lastName(faker.name().lastName())
+                .country(faker.country().name())
+                .birthDate(faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
+                .build())
+            .collect(Collectors.toList());
         return authorRepository.saveAll(authors);
     }
 
     private List<Book> createBooks(List<Author> authors) {
         Random random = new Random();
         List<Book> books = IntStream.rangeClosed(1, NUMBER_OF_ENTITIES_TO_MOCK)
-                .mapToObj(i -> Book.builder()
-                        .title(faker.book().title())
-                        .author(authors.get(random.nextInt(authors.size())))
-                        .pages(faker.number().numberBetween(100, 800))
-                        .releaseDate(faker.date().past(365, TimeUnit.DAYS).toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
-                        .build())
-                .collect(Collectors.toList());
+            .mapToObj(i -> Book.builder()
+                .title(faker.book().title())
+                .author(authors.get(random.nextInt(authors.size())))
+                .pages(faker.number().numberBetween(100, 800))
+                .releaseDate(faker.date().past(365, TimeUnit.DAYS).toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
+                .build())
+            .collect(Collectors.toList());
         return bookRepository.saveAll(books);
     }
 
@@ -78,10 +78,10 @@ public class MockDataGenerator {
         IntStream.rangeClosed(1, NUMBER_OF_ENTITIES_TO_MOCK).forEach(i -> {
             LocalDate borrowDate = LocalDate.now().minusDays(faker.number().numberBetween(7, 60));
             Borrow borrow = Borrow.builder()
-                    .book(books.get(i - 1))
-                    .borrowDate(borrowDate)
-                    .returnDate(borrowDate.plusDays(faker.number().numberBetween(2, 60)))
-                    .build();
+                .book(books.get(i - 1))
+                .borrowDate(borrowDate)
+                .returnDate(borrowDate.plusDays(faker.number().numberBetween(2, 60)))
+                .build();
             borrowRepository.save(borrow);
         });
     }
