@@ -13,6 +13,7 @@ import pwr.ztw.books.repository.BookRepository;
 import pwr.ztw.books.entity.Borrow;
 import pwr.ztw.books.repository.BorrowRepository;
 
+
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
@@ -20,6 +21,7 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.Random;
 
 @Component
 @Slf4j
@@ -60,10 +62,11 @@ public class MockDataGenerator {
     }
 
     private List<Book> createBooks(List<Author> authors) {
+        Random random = new Random();
         List<Book> books = IntStream.rangeClosed(1, NUMBER_OF_ENTITIES_TO_MOCK)
                 .mapToObj(i -> Book.builder()
                         .title(faker.book().title())
-                        .author(authors.get(i - 1))
+                        .author(authors.get(random.nextInt(authors.size())))
                         .pages(faker.number().numberBetween(100, 800))
                         .releaseDate(faker.date().past(365, TimeUnit.DAYS).toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
                         .build())
