@@ -1,10 +1,10 @@
-package pwr.ztw.books.borrow;
+package pwr.ztw.books.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pwr.ztw.books.books.Book;
+import pwr.ztw.books.entity.Book;
 
 
 @Data

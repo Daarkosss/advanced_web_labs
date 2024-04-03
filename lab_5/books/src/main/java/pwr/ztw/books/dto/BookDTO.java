@@ -1,12 +1,10 @@
-package pwr.ztw.books.books;
+package pwr.ztw.books.dto;
 
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pwr.ztw.books.author.Author;
-import pwr.ztw.books.author.AuthorDTO;
+import pwr.ztw.books.entity.Book;
 
 import java.time.LocalDate;
 

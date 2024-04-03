@@ -1,10 +1,9 @@
-package pwr.ztw.books.books;
+package pwr.ztw.books.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pwr.ztw.books.author.AuthorDTO;
 
 import java.time.LocalDate;
 
