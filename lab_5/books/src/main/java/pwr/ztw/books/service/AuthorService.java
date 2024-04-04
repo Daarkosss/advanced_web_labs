@@ -23,7 +23,7 @@ public class AuthorService {
     private final BookRepository bookRepository;
     private final BorrowRepository borrowRepository;
 
-    public Author getAuthorById(Long id) {
+    public Author   getAuthorById(Long id) {
         return authorRepository.findById(id).orElseThrow(() -> new RuntimeException("Author not found"));
     }
 

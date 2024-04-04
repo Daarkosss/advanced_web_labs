@@ -67,26 +67,4 @@ public class BorrowService {
         borrow.setReturnDate(newDate.getNewReturnDate());
         return borrowRepository.save(borrow);
     }
-
-    public Page<AvailableBooksForBorrowDTO> searchBooks(Pageable pageable, String param) {
-        List<Book> allBooks = bookRepository.findAll();
-        Stream<Book> bookStream = allBooks.stream();
-
-        if (param != null && !param.isEmpty()) {
-            bookStream = bookStream.filter(book ->
-                book.getTitle().contains(param) ||
-                book.getAuthor().getFirstName().contains(param) ||
-                book.getAuthor().getLastName().contains(param) ||
-                param.equals(book.getAuthor().getFirstName() + ' ' + book.getAuthor().getLastName()));
-        }
-
-        List<AvailableBooksForBorrowDTO> availableBooks = bookStream
-            .filter(this::isBookAvailableForBorrow)
-            .map(Book::toAvailableBooksForBorrowDTO)
-            .collect(Collectors.toList());
-
-        int start = (int) pageable.getOffset();
-        int end = Math.min((start + pageable.getPageSize()), availableBooks.size());
-        return new PageImpl<>(availableBooks.subList(start, end), pageable, availableBooks.size());
-    }
 }
