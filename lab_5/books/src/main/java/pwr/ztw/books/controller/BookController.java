@@ -45,7 +45,7 @@ public class BookController {
     }
 
     @Operation(summary = "Update book with provided id with new book data.")
-    @PatchMapping("/book/{id}")
+    @PutMapping("/book/{id}")
     public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody BookUpdateDTO book) {
         return ResponseEntity.ok(bookService.updateBook(id, book));
     }

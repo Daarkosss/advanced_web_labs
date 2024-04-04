@@ -32,6 +32,7 @@ public class Author {
 
     public AuthorDTO toAuthorDTO() {
         return AuthorDTO.builder()
+                .id(id)
                 .firstName(firstName)
                 .lastName(lastName)
                 .country(country)

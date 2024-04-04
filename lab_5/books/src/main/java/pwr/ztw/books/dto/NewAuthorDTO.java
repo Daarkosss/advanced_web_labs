@@ -12,8 +12,7 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthorDTO {
-    private Long id;
+public class NewAuthorDTO {
     private String firstName;
     private String lastName;
     private String country;
@@ -21,7 +20,6 @@ public class AuthorDTO {
 
     public Author toAuthor() {
         return Author.builder()
-                .id(id)
                 .firstName(firstName)
                 .lastName(lastName)
                 .country(country)

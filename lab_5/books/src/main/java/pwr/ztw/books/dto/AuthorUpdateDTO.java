@@ -11,10 +11,9 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookUpdateDTO {
-    private String title;
-    private Long authorId;
-    private Integer pages;
-    private LocalDate releaseDate;
+public class AuthorUpdateDTO {
+    private String firstName;
+    private String lastName;
+    private String country;
+    private LocalDate birthDate;
 }
-

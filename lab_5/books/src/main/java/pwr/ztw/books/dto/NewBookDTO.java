@@ -19,15 +19,6 @@ public class NewBookDTO {
     private Integer pages;
     private LocalDate releaseDate;
 
-    public Book toBook(AuthorDTO authorDTO) {
-        return Book.builder()
-                .title(title)
-                .author(authorDTO.toAuthor())
-                .pages(pages)
-                .releaseDate(releaseDate)
-                .build();
-    }
-
     public Book toBook(Author author) {
         return Book.builder()
                 .title(title)

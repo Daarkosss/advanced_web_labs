@@ -8,8 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
+import pwr.ztw.books.dto.AuthorUpdateDTO;
+import pwr.ztw.books.dto.NewAuthorDTO;
 import pwr.ztw.books.service.AuthorService;
-import pwr.ztw.books.dto.AuthorDTO;
 
 
 @RestController
@@ -36,13 +37,13 @@ public class AuthorController {
 
     @Operation(summary = "Create author based on author data")
     @PostMapping("/author/create")
-    public ResponseEntity<?> createAuthor(@RequestBody AuthorDTO author) {
+    public ResponseEntity<?> createAuthor(@RequestBody NewAuthorDTO author) {
         return ResponseEntity.ok().body(authorService.createAuthor(author));
     }
 
     @Operation(summary = "Update author with provided id with new author data.")
     @PutMapping("/author/{id}")
-    public ResponseEntity<?> updateAuthor(@PathVariable Long id, @RequestBody AuthorDTO author) {
+    public ResponseEntity<?> updateAuthor(@PathVariable Long id, @RequestBody AuthorUpdateDTO author) {
         try {
             return ResponseEntity.ok(authorService.updateAuthor(id, author));
         } catch (Exception e) {
