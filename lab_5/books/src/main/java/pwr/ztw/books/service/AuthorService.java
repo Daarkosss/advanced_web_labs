@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pwr.ztw.books.dto.AuthorUpdateDTO;
+import pwr.ztw.books.dto.NewAuthorDTO;
 import pwr.ztw.books.entity.Author;
 import pwr.ztw.books.repository.AuthorRepository;
 import pwr.ztw.books.entity.Book;
@@ -32,7 +33,7 @@ public class AuthorService {
         return authorRepository.findAll(pageable);
     }
 
-    public Author createAuthor(AuthorDTO author) {
+    public Author createAuthor(NewAuthorDTO author) {
         return authorRepository.save(author.toAuthor());
     }
 
