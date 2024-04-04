@@ -13,7 +13,6 @@ import pwr.ztw.books.entity.Book;
 import pwr.ztw.books.repository.BookRepository;
 import pwr.ztw.books.entity.Borrow;
 import pwr.ztw.books.repository.BorrowRepository;
-import pwr.ztw.books.dto.AuthorDTO;
 
 import java.util.List;
 
