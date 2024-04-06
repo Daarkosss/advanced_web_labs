@@ -3,21 +3,18 @@
     <v-text-field
       v-model="person.name"
       label="Imię i nazwisko"
-      :error-messages="nameErrors"
       @input="clearStatus"
     ></v-text-field>
 
     <v-text-field
       v-model="person.email"
       label="Email"
-      :error-messages="emailErrors"
       @input="clearStatus"
     ></v-text-field>
 
     <v-text-field
       v-model="person.phone"
       label="Telefon"
-      :error-messages="phoneErrors"
       @input="clearStatus"
     ></v-text-field>
 
@@ -28,6 +25,9 @@
     </v-alert>
     <v-alert v-else-if="success" type="success" dismissible>
       Dane poprawnie zapisano
+    </v-alert>
+    <v-alert v-else type="info">
+      Wypełnij formularz, aby dodać nowy kontakt
     </v-alert>
   </v-form>
 </template>
@@ -48,15 +48,6 @@ export default {
     };
   },
   computed: {
-    nameErrors() {
-      return this.invalidName ? ['Imię i nazwisko są wymagane.'] : [];
-    },
-    emailErrors() {
-      return this.invalidEmail ? ['Email jest wymagany.'] : [];
-    },
-    phoneErrors() {
-      return this.invalidPhone ? ['Numer telefonu jest wymagany.'] : [];
-    },
     invalidName() {
       return this.person.name === "";
     },
@@ -92,3 +83,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.v-alert {
+  margin-top: 10px;
+}
+</style>

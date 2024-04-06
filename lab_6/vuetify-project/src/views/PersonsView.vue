@@ -1,27 +1,13 @@
 <template>
-  <v-app>
-    <v-main>
-      <v-container class="small-container">
-        <v-row>
-          <v-col cols="12">
-            <h1>Znajomi</h1>
-          </v-col>
-        </v-row>
-
-        <v-row>
-          <v-col cols="12">
-            <person-form @add:person="addPerson" />
-          </v-col>
-        </v-row>
-
-        <v-row>
-          <v-col cols="12">
-            <persons-table :personsSource="persons" />
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-main>
-  </v-app>
+  <v-container class="small-container">
+    <v-row>
+      <v-col cols="12">
+        <h1>Znajomi</h1>
+        <person-form @add:person="addPerson" />
+        <persons-table :personsSource="persons" />
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -29,7 +15,6 @@ import PersonForm from './components/PersonForm.vue';
 import PersonsTable from './components/PersonsTable.vue';
 
 export default {
-  name: 'App',
   components: {
     PersonsTable,
     PersonForm,
@@ -64,6 +49,4 @@ export default {
 .small-container {
   max-width: 680px;
 }
-
-/* Możesz dostosować style Vuetify używając klas Vuetify lub dodając własne style */
 </style>
