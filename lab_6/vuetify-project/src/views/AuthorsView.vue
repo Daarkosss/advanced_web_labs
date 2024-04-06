@@ -1,9 +1,13 @@
 <template>
-  <v-data-table
+  <v-data-table-server
     :headers="headers"
     :items="authors"
-    :items-per-page-options="[3, 5, 20, 50, -1]"
-    :items-per-page="3"
+    :items-per-page-options="[3, 5, 10, 20, 50, -1]"
+    :loading="loading"
+    @update:options="loadItems"
+    v-model:items-per-page="pageSize"
+    v-model:items-length="totalAuthors"
+    :items-length="totalAuthors"
   >
     <template v-slot:top>
       <v-toolbar flat>
@@ -28,18 +32,21 @@
                     <v-text-field
                       v-model="editedItem.firstName"
                       label="Imie"
+                      :error-messages="firstNameError"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12">
                     <v-text-field
                       v-model="editedItem.lastName"
                       label="Nazwisko"
+                      :error-messages="lastNameError"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12">
                     <v-text-field
                       v-model="editedItem.country"
                       label="Kraj"
+                      :error-messages="countryError"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12">
@@ -47,6 +54,7 @@
                       v-model="editedItem.birthDate"
                       label="Data urodzenia"
                       type="date"
+                      :error-messages="birthDateError"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -56,10 +64,10 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue-darken-1" variant="text" @click="close"
-                >Cancel</v-btn
+                >Anuluj</v-btn
               >
               <v-btn color="blue-darken-1" variant="text" @click="save"
-                >Save</v-btn
+                >Zapisz</v-btn
               >
             </v-card-actions>
           </v-card>
@@ -95,7 +103,7 @@
     <template v-slot:no-data>
       <v-btn color="primary" @click="initialize"> Reset </v-btn>
     </template>
-  </v-data-table>
+  </v-data-table-server>
 </template>
 
 <script>
@@ -105,6 +113,10 @@ export default {
   data: () => ({
     dialog: false,
     dialogDelete: false,
+    firstNameError: "",
+    lastNameError: "",
+    countryError: "",
+    birthDateError: "",
     headers: [
       { title: "Imie", key: "firstName", align: "center" },
       { title: "Nazwisko", key: "lastName", align: "center" },
@@ -119,6 +131,9 @@ export default {
     ],
     authors: [],
     totalAuthors: 0,
+    loading: false,
+    page: 0,
+    pageSize: 5,
     editedIndex: -1,
     editedItem: {
       id: "",
@@ -132,7 +147,7 @@ export default {
       firstName: "",
       lastName: "",
       country: "",
-      birthDate: "",
+      birthDate: "2024-04-06",
     },
   }),
 
@@ -159,9 +174,11 @@ export default {
     async initialize() {
       this.loading = true;
       try {
-        const response = await api.getAuthors();
-        this.authors = response.content;
+        const response = await api.getAuthors(this.page, this.pageSize, "", "");
         this.totalAuthors = response.totalElements;
+        this.authors = response.content;
+
+        console.log("Authors fetched", this.totalAuthors);
       } catch (error) {
         console.error("Error fetching authors:", error);
         this.authors = [];
@@ -183,9 +200,17 @@ export default {
       this.dialogDelete = true;
     },
 
-    deleteItemConfirm() {
-      this.authors.splice(this.editedIndex, 1);
-      this.closeDelete();
+    async deleteItemConfirm() {
+      try {
+        await api.deleteAuthor(this.editedItem.id);
+        console.log("Author deleted", this.editedItem);
+      } catch (error) {
+        console.error("Error deleting author", error);
+        return;
+      } finally {
+        await this.initialize();
+        this.closeDelete();
+      }
     },
 
     close() {
@@ -206,18 +231,60 @@ export default {
 
     async save() {
       const { id, ...authorWithoutId } = this.editedItem;
+      // add validation here
+      this.firstNameError = this.editedItem.firstName
+        ? ""
+        : "Imię jest wymagane.";
+      this.lastNameError = this.editedItem.lastName
+        ? ""
+        : "Nazwisko jest wymagane.";
+      this.countryError = this.editedItem.country ? "" : "Kraj jest wymagany.";
+      this.birthDateError = this.editedItem.birthDate
+        ? ""
+        : "Data jest wymagana.";
+      if (
+        !this.editedItem.firstName ||
+        !this.editedItem.lastName ||
+        !this.editedItem.birthDate ||
+        !this.editedItem.country
+      ) {
+        return; // zakończ metodę, jeśli walidacja nie przeszła
+      }
 
       if (this.editedIndex > -1) {
-        Object.assign(this.authors[this.editedIndex], this.editedItem);
         console.log("Author edited", this.editedItem);
         await api.updateAuthor(id, authorWithoutId);
       } else {
-        this.authors.push(this.editedItem);
         console.log("New author added", authorWithoutId);
         await api.createAuthor(authorWithoutId);
       }
 
       this.close();
+      this.initialize();
+    },
+
+    async loadItems({ page, itemsPerPage, sortBy }) {
+      const sortKey = sortBy.length > 0 ? sortBy[0].key : "";
+      const sortOrder = sortBy.length > 0 ? sortBy[0].order : "";
+      console.log("Loading items", page, itemsPerPage, sortKey, sortOrder);
+
+      this.loading = true;
+      try {
+        const response = await api.getAuthors(
+          page - 1,
+          itemsPerPage,
+          sortKey,
+          sortOrder
+        );
+        this.authors = response.content;
+        this.totalAuthors = response.totalElements;
+        console.log("Authors fetched", this.totalAuthors);
+      } catch (error) {
+        console.error("Error fetching authors:", error);
+        this.authors = [];
+      } finally {
+        this.loading = false;
+      }
     },
   },
 };

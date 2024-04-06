@@ -64,10 +64,18 @@ class API {
         return response;
     }
 
-    async getAuthors() {
+    async getAuthors(page, itemsPerPage, sortKey, order) {
         const response = await this.fetch(
             'GET',
-            '/authors'
+            `/authors?page=${page}&size=${itemsPerPage}&sort=${sortKey},${order}`
+        );
+        return response;
+    }
+
+    async getAllAuthors() {
+        const response = await this.fetch(
+            'GET',
+            `/authors`
         );
         return response;
     }
