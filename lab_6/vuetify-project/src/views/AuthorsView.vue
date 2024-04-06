@@ -1,86 +1,224 @@
 <template>
-  <v-container class="small-container">
-    <v-row>
-      <v-col cols="12">
-        <h1>Autorzy</h1>
-        <author-form @author-added="fetchAuthors" />
-      </v-col>
-    </v-row>
-    
-    <v-row>
-      <v-col cols="12">
-        <author-search @search-completed="handleSearchCompleted" />
-      </v-col>
-    </v-row>
-    
-    <v-row>
-      <v-col cols="12">
-        <authors-table
-          :authors="authors"
-          :total-authors="totalAuthors"
-          :items-per-page="itemsPerPage"
-          @update-pagination="updatePagination"
-          @update-items-per-page="updateItemsPerPage" />
-      </v-col>
-    </v-row>
-  </v-container>
+  <v-data-table
+    :headers="headers"
+    :items="authors"
+    :items-per-page-options="[3, 5, 20, 50, -1]"
+    :items-per-page="3"
+  >
+    <template v-slot:top>
+      <v-toolbar flat>
+        <v-toolbar-title>Autorzy CRUD</v-toolbar-title>
+        <v-divider class="mx-4" inset vertical></v-divider>
+        <v-spacer></v-spacer>
+        <v-dialog v-model="dialog" max-width="500px">
+          <template v-slot:activator="{ props }">
+            <v-btn class="mb-2" color="primary" dark v-bind="props">
+              Nowy autor
+            </v-btn>
+          </template>
+          <v-card>
+            <v-card-title>
+              <span class="text-h5">{{ formTitle }}</span>
+            </v-card-title>
+
+            <v-card-text>
+              <v-container>
+                <v-row>
+                  <v-col cols="12">
+                    <v-text-field
+                      v-model="editedItem.firstName"
+                      label="Imie"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-text-field
+                      v-model="editedItem.lastName"
+                      label="Nazwisko"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-text-field
+                      v-model="editedItem.country"
+                      label="Kraj"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-text-field
+                      v-model="editedItem.birthDate"
+                      label="Data urodzenia"
+                      type="date"
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card-text>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue-darken-1" variant="text" @click="close"
+                >Cancel</v-btn
+              >
+              <v-btn color="blue-darken-1" variant="text" @click="save"
+                >Save</v-btn
+              >
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+        <v-dialog v-model="dialogDelete" max-width="500px">
+          <v-card>
+            <v-card-title class="text-h5"
+              >Czy na pewno chcesz usunąć tego autora?</v-card-title
+            >
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue-darken-1" variant="text" @click="closeDelete"
+                >Anuluj</v-btn
+              >
+              <v-btn
+                color="blue-darken-1"
+                variant="text"
+                @click="deleteItemConfirm"
+                >Potwierdź</v-btn
+              >
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-toolbar>
+    </template>
+    <template v-slot:item.actions="{ item }">
+      <v-icon class="me-2" size="small" @click="editItem(item)">
+        mdi-pencil
+      </v-icon>
+      <v-icon size="small" @click="deleteItem(item)"> mdi-delete </v-icon>
+    </template>
+    <template v-slot:no-data>
+      <v-btn color="primary" @click="initialize"> Reset </v-btn>
+    </template>
+  </v-data-table>
 </template>
 
 <script>
-import AuthorForm from '../components/AuthorForm.vue';
-import AuthorSearch from '../components/AuthorSearch.vue';
-import AuthorsTable from '../components/AuthorsTable.vue';
+import { api } from "../api/api.js";
 
 export default {
-  components: {
-    AuthorForm,
-    AuthorSearch,
-    AuthorsTable,
+  data: () => ({
+    dialog: false,
+    dialogDelete: false,
+    headers: [
+      { title: "Imie", key: "firstName", align: "center" },
+      { title: "Nazwisko", key: "lastName", align: "center" },
+      { title: "Kraj", key: "country", align: "center" },
+      { title: "Data urodzenia", key: "birthDate", align: "center" },
+      {
+        title: "Edytuj lub usuń",
+        value: "actions",
+        sortable: false,
+        align: "center",
+      },
+    ],
+    authors: [],
+    totalAuthors: 0,
+    editedIndex: -1,
+    editedItem: {
+      id: "",
+      firstName: "",
+      lastName: "",
+      country: "",
+      birthDate: "",
+    },
+    defaultItem: {
+      id: "",
+      firstName: "",
+      lastName: "",
+      country: "",
+      birthDate: "",
+    },
+  }),
+
+  computed: {
+    formTitle() {
+      return this.editedIndex === -1 ? "New Item" : "Edit Item";
+    },
   },
-  data() {
-    return {
-      authors: [],
-      totalAuthors: 0,
-      currentPage: 1,
-      itemsPerPage: 5, // Możesz ustawić domyślną ilość elementów na stronie
-    };
+
+  watch: {
+    dialog(val) {
+      val || this.close();
+    },
+    dialogDelete(val) {
+      val || this.closeDelete();
+    },
   },
+
+  created() {
+    this.initialize();
+  },
+
   methods: {
-    async fetchAuthors(page = this.currentPage, itemsPerPage = this.itemsPerPage) {
+    async initialize() {
+      this.loading = true;
       try {
-        const response = await fetch(`http://localhost:8080/api/v1/authors?page=${page - 1}&size=${itemsPerPage}`);
-        if (response.ok) {
-          const data = await response.json();
-          this.authors = data.content;
-          this.totalAuthors = data.totalElements;
-        } else {
-          console.error('Problem fetching authors');
-        }
+        const response = await api.getAuthors();
+        this.authors = response.content;
+        this.totalAuthors = response.totalElements;
       } catch (error) {
-        console.error(error);
+        console.error("Error fetching authors:", error);
+        this.authors = [];
+      } finally {
+        this.loading = false;
       }
     },
-    handleSearchCompleted(author) {
-      this.authors = [author];
+
+    editItem(item) {
+      this.editedIndex = this.authors.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      console.log(this.editedItem);
+      this.dialog = true;
     },
-    updatePagination(page, itemsPerPage) {
-      this.currentPage = page;
-      this.itemsPerPage = itemsPerPage;
-      this.fetchAuthors();
+
+    deleteItem(item) {
+      this.editedIndex = this.authors.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialogDelete = true;
     },
-    updateItemsPerPage(newItemsPerPage) {
-      this.itemsPerPage = newItemsPerPage;
-      this.fetchAuthors();
+
+    deleteItemConfirm() {
+      this.authors.splice(this.editedIndex, 1);
+      this.closeDelete();
     },
-  },
-  mounted() {
-    this.fetchAuthors(); // Pobiera autorów przy inicjalizacji widoku z domyślnymi parametrami paginacji
+
+    close() {
+      this.dialog = false;
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      });
+    },
+
+    closeDelete() {
+      this.dialogDelete = false;
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      });
+    },
+
+    async save() {
+      const { id, ...authorWithoutId } = this.editedItem;
+
+      if (this.editedIndex > -1) {
+        Object.assign(this.authors[this.editedIndex], this.editedItem);
+        console.log("Author edited", this.editedItem);
+        await api.updateAuthor(id, authorWithoutId);
+      } else {
+        this.authors.push(this.editedItem);
+        console.log("New author added", authorWithoutId);
+        await api.createAuthor(authorWithoutId);
+      }
+
+      this.close();
+    },
   },
 };
 </script>
-
-<style scoped>
-.small-container {
-  max-width: 680px;
-}
-</style>
