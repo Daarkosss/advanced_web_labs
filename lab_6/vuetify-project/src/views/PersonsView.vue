@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import PersonForm from './components/PersonForm.vue';
-import PersonsTable from './components/PersonsTable.vue';
+import PersonForm from '../components/PersonForm.vue';
+import PersonsTable from '../components/PersonsTable.vue';
 
 export default {
   components: {

@@ -87,5 +87,6 @@ export default {
 <style>
 .v-alert {
   margin-top: 10px;
+  margin-bottom: 10px;
 }
 </style>

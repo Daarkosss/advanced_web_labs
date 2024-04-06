@@ -1,62 +1,23 @@
 <template>
   <v-app>
+    <v-app-bar app>
+      <v-toolbar-title>Moja aplikacja</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn text to="/persons">Znajomi</v-btn>
+      <v-btn text to="/authors">Autorzy</v-btn>
+    </v-app-bar>
+
     <v-main>
       <v-container class="small-container">
-        <v-row>
-          <v-col cols="12">
-            <h1>Znajomi</h1>
-          </v-col>
-        </v-row>
-
-        <v-row>
-          <v-col cols="12">
-            <person-form @add:person="addPerson" />
-          </v-col>
-        </v-row>
-
-        <v-row>
-          <v-col cols="12">
-            <persons-table :personsSource="persons" />
-          </v-col>
-        </v-row>
+        <router-view></router-view>
       </v-container>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import PersonForm from './components/PersonForm.vue';
-import PersonsTable from './components/PersonsTable.vue';
-
 export default {
   name: 'App',
-  components: {
-    PersonsTable,
-    PersonForm,
-  },
-  data() {
-    return {
-      persons: [
-      ],
-    };
-  },
-  methods: {
-    addPerson(person) {
-      this.persons = [...this.persons, person];
-    },
-    async getPersons() {
-      try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/users');
-        const data = await response.json();
-        this.persons = data;
-      } catch (error) {
-        console.error(error);
-      }
-    },
-  },
-  mounted() {
-    this.getPersons();
-  },
 };
 </script>
 
@@ -64,6 +25,4 @@ export default {
 .small-container {
   max-width: 680px;
 }
-
-/* Możesz dostosować style Vuetify używając klas Vuetify lub dodając własne style */
 </style>
