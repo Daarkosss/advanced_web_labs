@@ -12,6 +12,8 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOrigins("*")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
                 .allowedHeaders("*");
+            .allowedOrigins("http://localhost:5174", "http://localhost:3000")
+            .allowedMethods("*");
     }
 }
 
