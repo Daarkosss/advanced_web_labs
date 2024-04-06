@@ -5,6 +5,7 @@
       <v-spacer></v-spacer>
       <v-btn text to="/persons">Znajomi</v-btn>
       <v-btn text to="/authors">Autorzy</v-btn>
+      <v-btn text to="/books">Książki</v-btn>
     </v-app-bar>
 
     <v-main>
