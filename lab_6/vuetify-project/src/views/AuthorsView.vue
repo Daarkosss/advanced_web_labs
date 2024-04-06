@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12">
         <h1>Autorzy</h1>
-        <author-form @author-added="fetchAuthors(currentPage, itemsPerPage)" />
+        <author-form @author-added="fetchAuthors" />
       </v-col>
     </v-row>
     
@@ -15,8 +15,12 @@
     
     <v-row>
       <v-col cols="12">
-        <!-- Teraz przekazujemy currentPage i itemsPerPage do AuthorsTable oraz obsługujemy zdarzenie update-pagination -->
-        <authors-table :authors="authors" :total-authors="totalAuthors" :items-per-page="itemsPerPage" @update-pagination="updatePagination" />
+        <authors-table
+          :authors="authors"
+          :total-authors="totalAuthors"
+          :items-per-page="itemsPerPage"
+          @update-pagination="updatePagination"
+          @update-items-per-page="updateItemsPerPage" />
       </v-col>
     </v-row>
   </v-container>
@@ -62,7 +66,11 @@ export default {
     updatePagination(page, itemsPerPage) {
       this.currentPage = page;
       this.itemsPerPage = itemsPerPage;
-      this.fetchAuthors(page, itemsPerPage);
+      this.fetchAuthors();
+    },
+    updateItemsPerPage(newItemsPerPage) {
+      this.itemsPerPage = newItemsPerPage;
+      this.fetchAuthors();
     },
   },
   mounted() {

@@ -26,22 +26,20 @@ export default {
     return {
       loading: false,
       headers: [
-        { text: 'Imię', value: 'firstName' },
-        { text: 'Nazwisko', value: 'lastName' },
-        { text: 'Kraj', value: 'country' },
-        { text: 'Data urodzenia', value: 'birthDate' },
+        { text: 'Imię', key: 'firstName' },
+        { text: 'Nazwisko', key: 'lastName' },
+        { text: 'Kraj', key: 'country' },
+        { text: 'Data urodzenia', key: 'birthDate' },
       ],
       currentPage: 1,
     };
   },
   methods: {
     handlePageUpdate(newPage) {
-      this.currentPage = newPage;
       this.$emit('update-pagination', newPage, this.itemsPerPage);
     },
     handleItemsPerPageUpdate(newItemsPerPage) {
-      this.itemsPerPage = newItemsPerPage;
-      this.$emit('update-pagination', this.currentPage, newItemsPerPage);
+      this.$emit('update-items-per-page', newItemsPerPage);
     },
   },
 };
