@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import PersonsView from '../views/PersonsView.vue';
 import AuthorsView from '../views/AuthorsView.vue';
 import BooksView from '../views/BooksView.vue';
+import BorrowsView from '../views/BorrowsView.vue';
 
 const routes = [
   {
@@ -18,6 +19,11 @@ const routes = [
     path: '/books',
     name: 'Books',
     component: BooksView,
+  },
+  {
+    path: '/borrows',
+    name: 'Borrows',
+    component: BorrowsView,
   },
 ];
 

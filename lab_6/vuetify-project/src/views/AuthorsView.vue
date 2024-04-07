@@ -5,8 +5,7 @@
     :items-per-page-options="[3, 5, 10, 20, 50, -1]"
     :loading="loading"
     @update:options="loadItems"
-    v-model:items-per-page="pageSize"
-    v-model:items-length="totalAuthors"
+    :items-per-page="pageSize"
     :items-length="totalAuthors"
   >
     <template v-slot:top>
