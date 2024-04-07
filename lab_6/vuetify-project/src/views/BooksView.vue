@@ -4,7 +4,6 @@
     :items="books"
     :loading="loading"
     @update:options="loadItems"
-    :items-per-page="pageSize"
     :items-length="totalBooks"
   >
     <template #top>
@@ -71,7 +70,7 @@
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
             <v-card-title class="text-h5"
-              >Czy na pewno chcesz usunąć tego autora?</v-card-title
+              >Czy na pewno chcesz usunąć tę książkę?</v-card-title
             >
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -136,10 +135,7 @@ export default {
     ],
     books: [],
     loading: false,
-    totalBooks: 0,
-    options: {},
-    page: 0,
-    pageSize: 10,
+    totalBooks: 0, 
     editedIndex: -1,
     editedItem: {
       id: '',
@@ -223,7 +219,6 @@ export default {
       } catch (error) {
         console.error('Error deleting book:', error);
       } finally {
-        this.initialize();
         this.loading = false;
         this.dialogDelete = false;
       }
@@ -274,17 +269,19 @@ export default {
 
       this.loading = true;
       try {
+        let savedBook;
         if (this.editedIndex > -1) {
-          await api.updateBook(this.editedItem.id, bookPayload);
+          savedBook = await api.updateBook(this.editedItem.id, bookPayload);
+          this.books[this.editedIndex] = savedBook;
         } else {
-          await api.createBook(bookPayload);
+          savedBook = await api.createBook(bookPayload);
+          this.books.push(savedBook);
         }
       } catch (error) {
         console.error('Error saving book:', error);
       } finally {
         this.loading = false;
         this.close();
-        this.initialize();
       }
     },
 
@@ -313,7 +310,7 @@ export default {
         );
         this.books = response.content;
         this.totalBooks = response.totalElements;
-        console.log("Books fetched", this.totalBooks);
+        console.log("Total books", this.totalBooks);
       } catch (error) {
         console.error("Error fetching books:", error);
         this.books = [];
