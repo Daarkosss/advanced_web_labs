@@ -1,113 +1,109 @@
 <template>
-  <v-container>
-    <v-data-table
-      :headers="headers"
-      :items="books"
-      :loading="loading"
-      :total-items="totalBooks"
-      :options.sync="options"
-      :items-per-page="pageSize"
-      :items-length="totalAuthors"
-      @update:options="fetchBooks"
-    >
-      <template #top>
-        <v-toolbar flat>
-          <v-toolbar-title>Books CRUD</v-toolbar-title>
-          <v-divider class="mx-4" inset vertical></v-divider>
-          <v-spacer></v-spacer>
-          <v-dialog v-model="dialog" max-width="500px" persistent>
-            <template v-slot:activator="{ props }">
-              <v-btn class="mb-2" color="primary" dark v-bind="props">
-                Dodaj nową książkę
-              </v-btn>
-            </template>
-            <v-card>
-              <v-card-title>
-                <span class="text-h5">{{ formTitle }}</span>
-              </v-card-title>
-              <v-card-text>
-                <v-container>
-                  <v-row>
+  <v-data-table-server
+    :headers="headers"
+    :items="books"
+    :loading="loading"
+    @update:options="loadItems"
+    :items-per-page="pageSize"
+    :items-length="totalBooks"
+  >
+    <template #top>
+      <v-toolbar flat>
+        <v-toolbar-title>Books CRUD</v-toolbar-title>
+        <v-divider class="mx-4" inset vertical></v-divider>
+        <v-spacer></v-spacer>
+        <v-dialog v-model="dialog" max-width="500px" persistent>
+          <template v-slot:activator="{ props }">
+            <v-btn class="mb-2" color="primary" dark v-bind="props">
+              Dodaj nową książkę
+            </v-btn>
+          </template>
+          <v-card>
+            <v-card-title>
+              <span class="text-h5">{{ formTitle }}</span>
+            </v-card-title>
+            <v-card-text>
+              <v-container>
+                <v-row>
+                  <v-col cols="12">
+                    <v-text-field 
+                      v-model="editedItem.title"
+                      label="Book title"
+                      :error-messages="titleError">
+                    </v-text-field>
+                  </v-col>
                     <v-col cols="12">
-                      <v-text-field 
-                        v-model="editedItem.title"
-                        label="Book title"
-                        :error-messages="titleError">
-                      </v-text-field>
+                      <v-select
+                          v-model="editedItem.authorId"
+                          :items="authors"
+                          item-value="id"
+                          :item-title="getAuthorFullName"
+                          label="Author"
+                          :error-messages="authorError"
+                      ></v-select>
                     </v-col>
-                      <v-col cols="12">
-                        <v-select
-                            v-model="editedItem.authorId"
-                            :items="authors"
-                            item-value="id"
-                            :item-title="getAuthorFullName"
-                            label="Author"
-                            :error-messages="authorError"
-                        ></v-select>
-                      </v-col>
-                    <v-col cols="12">
-                      <v-text-field 
-                        v-model="editedItem.pages"
-                        label="Pages" 
-                        type="number"
-                        :error-messages="pagesError">
-                      </v-text-field>
-                    </v-col>
-                    <v-col cols="12">
-                      <v-text-field
-                        v-model="editedItem.releaseDate"
-                        label="Release Date"
-                        type="date"
-                        :error-messages="releaseDateError">>
-                      </v-text-field>
-                    </v-col>
-                  </v-row>
-                </v-container>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-                <v-btn color="blue darken-1" text @click="save">Save</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-          <v-dialog v-model="dialogDelete" max-width="500px">
-            <v-card>
-              <v-card-title class="text-h5"
-                >Czy na pewno chcesz usunąć tego autora?</v-card-title
+                  <v-col cols="12">
+                    <v-text-field 
+                      v-model="editedItem.pages"
+                      label="Pages" 
+                      type="number"
+                      :error-messages="pagesError">
+                    </v-text-field>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-text-field
+                      v-model="editedItem.releaseDate"
+                      label="Release Date"
+                      type="date"
+                      :error-messages="releaseDateError">>
+                    </v-text-field>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
+              <v-btn color="blue darken-1" text @click="save">Save</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+        <v-dialog v-model="dialogDelete" max-width="500px">
+          <v-card>
+            <v-card-title class="text-h5"
+              >Czy na pewno chcesz usunąć tego autora?</v-card-title
+            >
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue-darken-1" variant="text" @click="closeDelete"
+                >Anuluj</v-btn
               >
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="blue-darken-1" variant="text" @click="closeDelete"
-                  >Anuluj</v-btn
-                >
-                <v-btn
-                  color="blue-darken-1"
-                  variant="text"
-                  @click="deleteItemConfirm"
-                  >Potwierdź</v-btn
-                >
-                <v-spacer></v-spacer>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-        </v-toolbar>
-      </template>
-      <!-- eslint-disable-next-line vue/valid-v-slot -->
-      <template #item.author="{ item }">
-        {{ item.author.firstName }} {{ item.author.lastName }}
-      </template>
-      <!-- eslint-disable-next-line vue/valid-v-slot -->
-      <template #item.actions="{ item }">
-        <v-icon small class="mr-2" @click="editItem(item)">
-          mdi-pencil
-        </v-icon>
-        <v-icon small @click="deleteItem(item)">
-          mdi-delete
-        </v-icon>
-      </template>
-    </v-data-table>
-  </v-container>
+              <v-btn
+                color="blue-darken-1"
+                variant="text"
+                @click="deleteItemConfirm"
+                >Potwierdź</v-btn
+              >
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-toolbar>
+    </template>
+    <!-- eslint-disable-next-line vue/valid-v-slot -->
+    <template #item.author="{ item }">
+      {{ item.author.firstName }} {{ item.author.lastName }}
+    </template>
+    <!-- eslint-disable-next-line vue/valid-v-slot -->
+    <template #item.actions="{ item }">
+      <v-icon small class="mr-2" @click="editItem(item)">
+        mdi-pencil
+      </v-icon>
+      <v-icon small @click="deleteItem(item)">
+        mdi-delete
+      </v-icon>
+    </template>
+  </v-data-table-server>
 </template>
 
 <script>
@@ -181,7 +177,7 @@ export default {
     async fetchBooks() {
       this.loading = true;
       try {
-        const response = await api.getBooks(this.page, this.page, "", "");
+        const response = await api.getBooks(this.page, this.pageSize, "", "");
         this.books = response.content;
         this.totalBooks = response.totalElements;
       } catch (error) {
@@ -299,6 +295,30 @@ export default {
         console.log(this.authors);
       } catch (error) {
         console.error('Error fetching authors:', error);
+      }
+    },
+
+    async loadItems({ page, itemsPerPage, sortBy }) {
+      const sortKey = sortBy.length > 0 ? sortBy[0].key : "";
+      const sortOrder = sortBy.length > 0 ? sortBy[0].order : "";
+      console.log("Loading items", page, itemsPerPage, sortKey, sortOrder);
+
+      this.loading = true;
+      try {
+        const response = await api.getBooks(
+          page - 1,
+          itemsPerPage,
+          sortKey,
+          sortOrder
+        );
+        this.books = response.content;
+        this.totalBooks = response.totalElements;
+        console.log("Books fetched", this.totalBooks);
+      } catch (error) {
+        console.error("Error fetching books:", error);
+        this.books = [];
+      } finally {
+        this.loading = false;
       }
     },
   },
