@@ -22,10 +22,10 @@ class API {
         }
     }
 
-    async getBooks() {
+    async getBooks(page, itemsPerPage, sortKey, order) {
         const response = await this.fetch(
             'GET',
-            '/books'
+            `/books?page=${page}&size=${itemsPerPage}&sort=${sortKey},${order}`
         );
         return response;
     }
