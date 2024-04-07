@@ -13,6 +13,8 @@ import pwr.ztw.books.dto.BookDTO;
 import pwr.ztw.books.dto.BookUpdateDTO;
 import pwr.ztw.books.dto.NewBookDTO;
 
+import java.util.Collections;
+
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
@@ -25,7 +27,7 @@ public class BookController {
         try {
             return ResponseEntity.ok(bookService.findBookById(id));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(Collections.singletonMap("errorMessage", e.getMessage()));
         }
     }
 
@@ -40,7 +42,7 @@ public class BookController {
         try {
             return ResponseEntity.ok().body(bookService.saveBook(book));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(Collections.singletonMap("errorMessage", e.getMessage()));
         }
     }
 
@@ -55,9 +57,9 @@ public class BookController {
     public ResponseEntity<?> deleteBook(@PathVariable Long id) {
         try {
             bookService.deleteBookById(id);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok(Collections.singletonMap("message", "Book deleted successfully"));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(Collections.singletonMap("errorMessage", e.getMessage()));
         }
     }
 }
