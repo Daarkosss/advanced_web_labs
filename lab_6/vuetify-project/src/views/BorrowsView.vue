@@ -221,6 +221,12 @@
   
       async save() {
         const borrow = this.borrows.find(borrow => borrow.id === this.editedItem.id);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const returnDate = new Date(this.editedItem.returnDate);
+        returnDate.setHours(0, 0, 0, 0);
+
 
         if (this.editedIndex === -1) {
           if (!this.editedItem.bookId) {
@@ -230,6 +236,9 @@
           this.returnDateError = this.editedItem.returnDate
             ? ""
             : "Data zwrócenia książki jest wymagana";
+          this.returnDateError = returnDate < today
+            ? "Data zwrócenia książki nie moze być z przeszłosci" 
+            : this.returnDateError;
           
           if (!this.editedItem.bookId || !this.editedItem.returnDate) {
             return;
@@ -241,6 +250,9 @@
           if (this.editedIndex > -1 && this.editedItem.returnDate <= borrow.returnDate) {
             this.returnDateError = "Data zwrócenia książki musi być pożniejsza niż aktualna data zwrócenia";
           }
+          this.returnDateError = returnDate < today
+            ? "Data zwrócenia książki nie moze byc z przeszlosci" 
+            : this.returnDateError;
 
           if (!this.editedItem.returnDate || this.editedItem.returnDate <= borrow.returnDate) {
             return;
