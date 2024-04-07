@@ -12,6 +12,8 @@ import pwr.ztw.books.dto.AuthorUpdateDTO;
 import pwr.ztw.books.dto.NewAuthorDTO;
 import pwr.ztw.books.service.AuthorService;
 
+import java.util.Collections;
+
 
 @RestController
 @RequestMapping("/api/v1")
@@ -25,7 +27,7 @@ public class AuthorController {
         try {
             return ResponseEntity.ok(authorService.getAuthorById(id));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(Collections.singletonMap("errorMessage", e.getMessage()));
         }
     }
 
@@ -47,7 +49,7 @@ public class AuthorController {
         try {
             return ResponseEntity.ok(authorService.updateAuthor(id, author));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(Collections.singletonMap("errorMessage", e.getMessage()));
         }
     }
 
@@ -56,9 +58,9 @@ public class AuthorController {
     public ResponseEntity<?> deleteAuthor(@PathVariable Long id) {
         try {
             authorService.deleteAuthor(id);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok(Collections.singletonMap("message", "Author deleted successfully"));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(Collections.singletonMap("errorMessage", e.getMessage()));
         }
     }
 

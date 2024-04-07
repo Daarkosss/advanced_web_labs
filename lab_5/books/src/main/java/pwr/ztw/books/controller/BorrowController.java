@@ -15,6 +15,8 @@ import pwr.ztw.books.dto.BorrowDTO;
 import pwr.ztw.books.dto.NewBorrowDTO;
 import pwr.ztw.books.dto.NewReturnDateDTO;
 
+import java.util.Collections;
+
 
 @RestController
 @RequestMapping("/api/v1")
@@ -28,7 +30,7 @@ public class BorrowController {
         try {
             return ResponseEntity.ok(borrowService.findBorrowById(id));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(Collections.singletonMap("errorMessage", e.getMessage()));
         }
     }
 
@@ -44,7 +46,7 @@ public class BorrowController {
         try {
             return ResponseEntity.ok(borrowService.saveBorrow(borrowDTO));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(Collections.singletonMap("errorMessage", e.getMessage()));
         }
     }
 
@@ -54,7 +56,7 @@ public class BorrowController {
         try {
             return ResponseEntity.ok(borrowService.updateDueDate(id, newReturnDate));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(Collections.singletonMap("errorMessage", e.getMessage()));
         }
     }
 
@@ -63,10 +65,15 @@ public class BorrowController {
     public ResponseEntity<?> deleteBorrow(@PathVariable Long id) {
         try {
             borrowService.deleteBorrowById(id);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok(Collections.singletonMap("message", "Borrow deleted successfully"));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(Collections.singletonMap("errorMessage", e.getMessage()));
         }
     }
 
+    @Operation(summary = "Search for available books by title or author")
+    @GetMapping("/borrow/search")
+    public ResponseEntity<Page<AvailableBooksForBorrowDTO>> searchBorrows(@PageableDefault(page = 0, size = 10) Pageable pageable, @RequestParam(required = false) String param) {
+        return ResponseEntity.ok(borrowService.searchBooks(pageable, param));
+    }
 }
