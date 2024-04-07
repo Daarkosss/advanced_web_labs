@@ -140,22 +140,7 @@
   
     methods: {
       initialize() {
-        this.fetchBorrows();
         this.fetchAvailableBooks();
-      },
-  
-      async fetchBorrows() {
-        this.loading = true;
-        try {
-          const response = await api.getBorrows(0, 1000, "", "");
-          this.borrows = response.content;
-          this.totalBorrows = response.totalElements;
-        } catch (error) {
-          console.error('Error fetching borrows:', error);
-          this.borrows = [];
-        } finally {
-          this.loading = false;
-        }
       },
 
       async fetchAvailableBooks() {

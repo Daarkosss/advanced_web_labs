@@ -163,25 +163,11 @@ export default {
 
   methods: {
     initialize() {
-      this.fetchBooks();
       this.fetchAuthors();
     },
 
     getAuthorFullName(author) {
       return `${author.firstName} ${author.lastName}`;
-    },
-    async fetchBooks() {
-      this.loading = true;
-      try {
-        const response = await api.getBooks(this.page, this.pageSize, "", "");
-        this.books = response.content;
-        this.totalBooks = response.totalElements;
-      } catch (error) {
-        console.error('Error fetching books:', error);
-        this.books = [];
-      } finally {
-        this.loading = false;
-      }
     },
 
     editItem(item) {
