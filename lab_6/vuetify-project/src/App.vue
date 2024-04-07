@@ -6,6 +6,7 @@
       <v-btn text to="/persons">Znajomi</v-btn>
       <v-btn text to="/authors">Autorzy</v-btn>
       <v-btn text to="/books">Książki</v-btn>
+      <v-btn text to="/borrows">Wypożyczenia</v-btn>
     </v-app-bar>
 
     <v-main>

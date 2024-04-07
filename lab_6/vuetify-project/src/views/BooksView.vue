@@ -54,7 +54,7 @@
                       v-model="editedItem.releaseDate"
                       label="Release Date"
                       type="date"
-                      :error-messages="releaseDateError">>
+                      :error-messages="releaseDateError">
                     </v-text-field>
                   </v-col>
                 </v-row>
@@ -287,8 +287,8 @@ export default {
 
     async fetchAuthors() {
       try {
-        const response = await api.getAuthors(0, 100, "", ""); // Replace with actual API call
-        this.authors = response.content; // Assume the response is an array of authors
+        const response = await api.getAuthors(0, 10000, "", "");
+        this.authors = response.content;
         console.log(this.authors);
       } catch (error) {
         console.error('Error fetching authors:', error);

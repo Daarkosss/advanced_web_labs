@@ -1,3 +1,7 @@
+import {useToast} from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
+
+const $toast = useToast();
 const BASE_PATH = 'http://localhost:8080/api/v1';
 
 class API {
@@ -15,10 +19,13 @@ class API {
         const response = await fetch(`${BASE_PATH}${path}`, options);
         const data = await response.json();
 
-        if (!response.ok) {
-            throw new Error(data.errorMessage || 'Wrong server response!');
-        } else {
+        if (response.ok) {
+            if (data.message) {
+                $toast.success(data.message);
+            }
             return data;
+        } else {
+            $toast.warning(data.errorMessage);
         }
     }
 
@@ -110,6 +117,56 @@ class API {
             'POST',
             '/author/create',
             authorData
+        );
+        return response;
+    }
+
+    async getBorrows(page, itemsPerPage, sortKey, order) {
+        const response = await this.fetch(
+            'GET',
+            `/borrows?page=${page}&size=${itemsPerPage}&sort=${sortKey},${order}`
+        );
+        return response;
+    }
+
+    async getBorrowById(id) {
+        const response = await this.fetch(
+            'GET',
+            `/borrow/${id}`
+        );
+        return response;
+    }
+
+    async createBorrow(borrowData) {
+        const response = await this.fetch(
+            'POST',
+            '/borrow/borrow-book',
+            borrowData
+        );
+        return response;
+    }
+
+    async updateBorrow(id, borrowData) {
+        const response = await this.fetch(
+            'PATCH',
+            `/borrow/${id}`,
+            borrowData
+        );
+        return response;
+    }
+
+    async deleteBorrow(id) {
+        const response = await this.fetch(
+            'DELETE',
+            `/borrow/${id}`
+        );
+        return response;
+    }
+
+    async getAvailableBooksForBorrow(page, itemsPerPage, sortKey, order) {
+        const response = await this.fetch(
+            'GET',
+            `/borrow/search?page=${page}&size=${itemsPerPage}&sort=${sortKey},${order}`
         );
         return response;
     }
