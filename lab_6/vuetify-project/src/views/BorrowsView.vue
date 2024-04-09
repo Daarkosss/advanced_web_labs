@@ -265,6 +265,7 @@
           this.loading = false;
           this.close();
           this.loadItems(this.currentOptions);
+          this.fetchAvailableBooks();
         }
       },
   
