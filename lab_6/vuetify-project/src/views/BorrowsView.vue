@@ -106,6 +106,7 @@
     data: () => ({
       dialog: false,
       dialogDelete: false,
+      currentOptions: {},
       bookError: '',
       returnDateError: '',
       headers: [
@@ -186,13 +187,13 @@
         this.loading = true;
         try {
           await api.deleteBorrow(this.editedItem.id);
-          this.borrows.splice(this.editedIndex, 1);
           console.log('deleted');
         } catch (error) {
           console.error('Error deleting borrow:', error);
         } finally {
           this.loading = false;
           this.dialogDelete = false;
+          this.loadItems(this.currentOptions);
         }
       },
   
@@ -212,6 +213,7 @@
         const returnDate = new Date(this.editedItem.returnDate);
         returnDate.setHours(0, 0, 0, 0);
 
+        console.log('start');
         if (this.editedIndex === -1) {
           this.bookError = this.editedItem.bookId ? "" : "Książka jest wymagana";
           
@@ -222,24 +224,20 @@
             ? "Data zwrócenia książki nie moze być z przeszłosci" 
             : this.returnDateError;
           console.log(this.returnDateError);
-          
-          if (this.bookError || this.returnDateError) {
-            return;
-          }
         } else {
           this.returnDateError = this.editedItem.returnDate
             ? ""
             : "Data zwrócenia książki jest wymagana";
-          if (this.editedIndex > -1 && this.editedItem.returnDate <= borrow.returnDate) {
+          if (this.editedItem.returnDate <= borrow.returnDate) {
             this.returnDateError = "Data zwrócenia książki musi być pożniejsza niż aktualna data zwrócenia";
           }
           this.returnDateError = returnDate < today
-            ? "Data zwrócenia książki nie moze byc z przeszlosci" 
+            ? "Data zwrócenia książki nie moze byc z przeszłości" 
             : this.returnDateError;
-
-          if (!this.editedItem.returnDate || this.editedItem.returnDate <= borrow.returnDate) {
-            return;
-          }
+        }
+        console.log(this.bookError, this.returnDateError);
+        if (this.bookError || this.returnDateError) {
+          return;
         }
 
         let borrowPayload = null;
@@ -256,25 +254,23 @@
   
         this.loading = true;
         try {
-          let savedBorrow;
           if (this.editedIndex > -1) {
-            savedBorrow = await api.updateBorrow(this.editedItem.id, borrowPayload);
-            this.borrows[this.editedIndex] = savedBorrow;
+            await api.updateBorrow(this.editedItem.id, borrowPayload);
           } else {
-            savedBorrow = await api.createBorrow(borrowPayload);
-            if (savedBorrow) {
-              this.borrows.push(savedBorrow);
-            }
+            await api.createBorrow(borrowPayload);
           }
         } catch (error) {
           console.error('Error saving book:', error);
         } finally {
           this.loading = false;
           this.close();
+          this.loadItems(this.currentOptions);
         }
       },
   
       async loadItems({ page, itemsPerPage, sortBy }) {
+        this.currentOptions = { page, itemsPerPage, sortBy };
+
         const sortKey = sortBy.length > 0 ? sortBy[0].key : "";
         const sortOrder = sortBy.length > 0 ? sortBy[0].order : "";
         console.log("Loading items", page, itemsPerPage, sortKey, sortOrder);
@@ -305,13 +301,4 @@
     },
   };
   </script>
-  
-  <style scoped>
-    .text-center {
-      text-align: center;
-    }
-    .text-right {
-      text-align: right;
-    }
-  </style>
   

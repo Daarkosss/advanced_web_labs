@@ -93,7 +93,8 @@
         </v-dialog>
       </v-toolbar>
     </template>
-    <template v-slot:item.actions="{ item }">
+    <!-- eslint-disable-next-line vue/valid-v-slot -->
+    <template #item.actions="{ item }">
       <v-icon class="me-2" size="small" @click="editItem(item)">
         mdi-pencil
       </v-icon>
@@ -112,6 +113,7 @@ export default {
   data: () => ({
     dialog: false,
     dialogDelete: false,
+    currentOptions: {},
     firstNameError: "",
     lastNameError: "",
     countryError: "",
@@ -207,8 +209,8 @@ export default {
         console.error("Error deleting author", error);
         return;
       } finally {
-        await this.initialize();
         this.closeDelete();
+        this.loadItems(this.currentOptions);
       }
     },
 
@@ -230,7 +232,6 @@ export default {
 
     async save() {
       const { id, ...authorWithoutId } = this.editedItem;
-      // add validation here
       this.firstNameError = this.editedItem.firstName
         ? ""
         : "Imię jest wymagane.";
@@ -259,10 +260,12 @@ export default {
       }
 
       this.close();
-      this.initialize();
+      this.loadItems(this.currentOptions);
     },
 
     async loadItems({ page, itemsPerPage, sortBy }) {
+      this.currentOptions = { page, itemsPerPage, sortBy };
+
       const sortKey = sortBy.length > 0 ? sortBy[0].key : "";
       const sortOrder = sortBy.length > 0 ? sortBy[0].order : "";
       console.log("Loading items", page, itemsPerPage, sortKey, sortOrder);
