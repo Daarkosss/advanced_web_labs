@@ -212,11 +212,8 @@
         const returnDate = new Date(this.editedItem.returnDate);
         returnDate.setHours(0, 0, 0, 0);
 
-
         if (this.editedIndex === -1) {
-          if (!this.editedItem.bookId) {
-            this.bookError = "Książka jest wymagana";
-          }
+          this.bookError = this.editedItem.bookId ? "" : "Książka jest wymagana";
           
           this.returnDateError = this.editedItem.returnDate
             ? ""
@@ -224,8 +221,9 @@
           this.returnDateError = returnDate < today
             ? "Data zwrócenia książki nie moze być z przeszłosci" 
             : this.returnDateError;
+          console.log(this.returnDateError);
           
-          if (!this.editedItem.bookId || !this.editedItem.returnDate) {
+          if (this.bookError || this.returnDateError) {
             return;
           }
         } else {

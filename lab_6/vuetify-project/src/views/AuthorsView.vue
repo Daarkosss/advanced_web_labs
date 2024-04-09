@@ -132,7 +132,7 @@ export default {
     totalAuthors: 0,
     loading: false,
     page: 0,
-    pageSize: 5,
+    pageSize: 10,
     editedIndex: -1,
     editedItem: {
       id: "",

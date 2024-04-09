@@ -179,7 +179,6 @@ export default {
         pages: item.pages,
         releaseDate: item.releaseDate,
       };
-      console.log(this.editedItem);
       this.dialog = true;
     },
 
@@ -255,19 +254,17 @@ export default {
 
       this.loading = true;
       try {
-        let savedBook;
         if (this.editedIndex > -1) {
-          savedBook = await api.updateBook(this.editedItem.id, bookPayload);
-          this.books[this.editedIndex] = savedBook;
+          await api.updateBook(this.editedItem.id, bookPayload);
         } else {
-          savedBook = await api.createBook(bookPayload);
-          this.books.push(savedBook);
+          await api.createBook(bookPayload);
         }
       } catch (error) {
         console.error('Error saving book:', error);
       } finally {
         this.loading = false;
         this.close();
+        this.loadItems();
       }
     },
 
@@ -311,12 +308,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-  .text-center {
-    text-align: center;
-  }
-  .text-right {
-    text-align: right;
-  }
-</style>
