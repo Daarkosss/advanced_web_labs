@@ -121,6 +121,7 @@ export default {
   data: () => ({
     dialog: false,
     dialogDelete: false,
+    currentOptions: {},
     titleError: "",
     authorError: "",
     pagesError: "",
@@ -200,12 +201,12 @@ export default {
       this.loading = true;
       try {
         await api.deleteBook(this.editedItem.id);
-        this.books.splice(this.editedIndex, 1);
       } catch (error) {
         console.error('Error deleting book:', error);
       } finally {
         this.loading = false;
         this.dialogDelete = false;
+        this.loadItems(this.currentOptions);
       }
     },
 
@@ -264,7 +265,7 @@ export default {
       } finally {
         this.loading = false;
         this.close();
-        this.loadItems();
+        this.loadItems(this.currentOptions);
       }
     },
 
@@ -279,6 +280,8 @@ export default {
     },
 
     async loadItems({ page, itemsPerPage, sortBy }) {
+      this.currentOptions = { page, itemsPerPage, sortBy };
+
       const sortKey = sortBy.length > 0 ? sortBy[0].key : "";
       const sortOrder = sortBy.length > 0 ? sortBy[0].order : "";
       console.log("Loading items", page, itemsPerPage, sortKey, sortOrder);
