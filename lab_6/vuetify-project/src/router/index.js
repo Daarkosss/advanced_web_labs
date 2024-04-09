@@ -1,15 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import PersonsView from '../views/PersonsView.vue';
 import AuthorsView from '../views/AuthorsView.vue';
 import BooksView from '../views/BooksView.vue';
 import BorrowsView from '../views/BorrowsView.vue';
 
 const routes = [
-  {
-    path: '/persons',
-    name: 'Persons',
-    component: PersonsView,
-  },
   {
     path: '/authors',
     name: 'Authors',
