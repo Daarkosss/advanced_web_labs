@@ -2,7 +2,6 @@
   <v-data-table-server
     :headers="headers"
     :items="authors"
-    :items-per-page-options="[3, 5, 10, 20, 50, -1]"
     :loading="loading"
     @update:options="loadItems"
     :items-per-page="pageSize"
@@ -10,13 +9,13 @@
   >
     <template v-slot:top>
       <v-toolbar flat>
-        <v-toolbar-title>Autorzy CRUD</v-toolbar-title>
+        <v-toolbar-title>Authors CRUD</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="500px">
           <template v-slot:activator="{ props }">
             <v-btn class="mb-2" color="primary" dark v-bind="props">
-              Nowy autor
+              Add new autor
             </v-btn>
           </template>
           <v-card>
@@ -30,28 +29,28 @@
                   <v-col cols="12">
                     <v-text-field
                       v-model="editedItem.firstName"
-                      label="Imie"
+                      label="First name"
                       :error-messages="firstNameError"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12">
                     <v-text-field
                       v-model="editedItem.lastName"
-                      label="Nazwisko"
+                      label="Last name"
                       :error-messages="lastNameError"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12">
                     <v-text-field
                       v-model="editedItem.country"
-                      label="Kraj"
+                      label="Country"
                       :error-messages="countryError"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12">
                     <v-text-field
                       v-model="editedItem.birthDate"
-                      label="Data urodzenia"
+                      label="Birth date"
                       type="date"
                       :error-messages="birthDateError"
                     ></v-text-field>
@@ -63,29 +62,29 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue-darken-1" variant="text" @click="close"
-                >Anuluj</v-btn
+                >Cancel</v-btn
               >
               <v-btn color="blue-darken-1" variant="text" @click="save"
-                >Zapisz</v-btn
+                >Save</v-btn
               >
             </v-card-actions>
           </v-card>
         </v-dialog>
-        <v-dialog v-model="dialogDelete" max-width="500px">
+        <v-dialog v-model="dialogDelete" max-width="520px">
           <v-card>
             <v-card-title class="text-h5"
-              >Czy na pewno chcesz usunąć tego autora?</v-card-title
+              >Are you sure you want to delete this author?</v-card-title
             >
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue-darken-1" variant="text" @click="closeDelete"
-                >Anuluj</v-btn
+                >Cancel</v-btn
               >
               <v-btn
                 color="blue-darken-1"
                 variant="text"
                 @click="deleteItemConfirm"
-                >Potwierdź</v-btn
+                >Confirm</v-btn
               >
               <v-spacer></v-spacer>
             </v-card-actions>
@@ -119,12 +118,13 @@ export default {
     countryError: "",
     birthDateError: "",
     headers: [
-      { title: "Imie", key: "firstName", align: "center" },
-      { title: "Nazwisko", key: "lastName", align: "center" },
-      { title: "Kraj", key: "country", align: "center" },
-      { title: "Data urodzenia", key: "birthDate", align: "center" },
+      { title: "ID", key: "id" },
+      { title: "First name", key: "firstName" },
+      { title: "Last name", key: "lastName" },
+      { title: "Country", key: "country" },
+      { title: "Birth date", key: "birthDate" },
       {
-        title: "Edytuj lub usuń",
+        title: "Edit or delete",
         value: "actions",
         sortable: false,
         align: "center",
@@ -234,14 +234,14 @@ export default {
       const { id, ...authorWithoutId } = this.editedItem;
       this.firstNameError = this.editedItem.firstName
         ? ""
-        : "Imię jest wymagane.";
+        : "First name is required";
       this.lastNameError = this.editedItem.lastName
         ? ""
-        : "Nazwisko jest wymagane.";
-      this.countryError = this.editedItem.country ? "" : "Kraj jest wymagany.";
+        : "Last name is required";
+      this.countryError = this.editedItem.country ? "" : "Country is required";
       this.birthDateError = this.editedItem.birthDate
         ? ""
-        : "Data jest wymagana.";
+        : "Date is required";
       if (
         !this.editedItem.firstName ||
         !this.editedItem.lastName ||

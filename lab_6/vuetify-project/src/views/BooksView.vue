@@ -14,7 +14,7 @@
         <v-dialog v-model="dialog" max-width="500px" persistent>
           <template v-slot:activator="{ props }">
             <v-btn class="mb-2" color="primary" dark v-bind="props">
-              Dodaj nową książkę
+              Add new book
             </v-btn>
           </template>
           <v-card>
@@ -70,18 +70,18 @@
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
             <v-card-title class="text-h5"
-              >Czy na pewno chcesz usunąć tę książkę?</v-card-title
+              >Are you sure you want to delete this book?</v-card-title
             >
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue-darken-1" variant="text" @click="closeDelete"
-                >Anuluj</v-btn
+                >Cancel</v-btn
               >
               <v-btn
                 color="blue-darken-1"
                 variant="text"
                 @click="deleteItemConfirm"
-                >Potwierdź</v-btn
+                >Confirm</v-btn
               >
               <v-spacer></v-spacer>
             </v-card-actions>
@@ -132,7 +132,7 @@ export default {
       { title: 'Author', key: 'author', value: 'author', sort: (a, b) => compareAuthors(a, b) },
       { title: 'Pages', key: 'pages', value: 'pages' },
       { title: 'Release Date', key: 'releaseDate', value: 'releaseDate' },
-      { title: 'Actions', value: 'actions', sortable: false },
+      { title: 'Edit or delete', value: 'actions', sortable: false, align: "center" },
     ],
     books: [],
     loading: false,
@@ -158,7 +158,7 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'Dodawanie nowej książki' : 'Edytowanie książki';
+      return this.editedIndex === -1 ? 'Adding new book' : 'Editing existing book';
     },
   },
 
@@ -221,21 +221,21 @@ export default {
     async save() {
       this.titleError = this.editedItem.title
         ? ""
-        : "Tytuł jest wymagany";
+        : "Title is required";
 
       this.authorError = this.editedItem.authorId
         ? ""
-        : "Autor jest wymagany";
+        : "Author is required";
 
       this.pagesError = this.editedItem.pages
         ? ""
-        : "Liczba stron jest wymagana";
+        : "Pages is required";
       if (this.editedItem.pages <= 0) 
-        this.pagesError = "Liczba stron musi być większa od 0";
+        this.pagesError = "Pages number must greater than 0";
 
       this.releaseDateError = this.editedItem.releaseDate
         ? ""
-        : "Data jest wymagana";
+        : "Date is required";
 
       if (
         !this.editedItem.title ||

@@ -14,7 +14,7 @@
         <v-dialog v-model="dialog" max-width="500px" persistent>
           <template v-slot:activator="{ props }">
             <v-btn class="mb-2" color="primary" dark v-bind="props">
-              Dodaj nowe wypożyczenie
+              Add new borrow
             </v-btn>
           </template>
           <v-card>
@@ -37,7 +37,7 @@
                   <v-col cols="12">
                     <v-text-field 
                       v-model="editedItem.returnDate"
-                      label="Data zwrócenia"
+                      label="Return date"
                       type="date"
                       :error-messages="returnDateError">
                     </v-text-field>
@@ -52,21 +52,21 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
-        <v-dialog v-model="dialogDelete" max-width="500px">
+        <v-dialog v-model="dialogDelete" max-width="520px">
           <v-card>
             <v-card-title class="text-h5"
-              >Czy na pewno chcesz usunąć to wypożyczenie?</v-card-title
+              >Are you sure you want to delete this borrow?</v-card-title
             >
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue-darken-1" variant="text" @click="closeDelete"
-                >Anuluj</v-btn
+                >Cancel</v-btn
               >
               <v-btn
                 color="blue-darken-1"
                 variant="text"
                 @click="deleteItemConfirm"
-                >Potwierdź</v-btn
+                >Confirm</v-btn
               >
               <v-spacer></v-spacer>
             </v-card-actions>
@@ -92,15 +92,6 @@
   
 <script>
   import { api } from '../api/api'
-  
-  // Compare lastName at first, then firstName
-  function compareAuthors(a, b) {
-    if (a.lastName < b.lastName) return -1;
-    if (a.lastName > b.lastName) return 1;
-    if (a.firstName < b.firstName) return -1;
-    if (a.firstName > b.firstName) return 1;
-    return 0;
-  }
   
   export default {
     data: () => ({
@@ -135,7 +126,7 @@
   
     computed: {
       formTitle() {
-        return this.editedIndex === -1 ? 'Dodawanie nowego wypożyczenia' : 'Edytowanie wypożyczenia';
+        return this.editedIndex === -1 ? 'Adding new borrow' : 'Editing existing borrow';
       },
     },
   
@@ -215,27 +206,27 @@
 
         console.log('start');
         if (this.editedIndex === -1) {
-          this.bookError = this.editedItem.bookId ? "" : "Książka jest wymagana";
+          this.bookError = this.editedItem.bookId ? "" : "Book is required";
           
           this.returnDateError = this.editedItem.returnDate
             ? ""
-            : "Data zwrócenia książki jest wymagana";
+            : "Return date is required";
           this.returnDateError = returnDate < today
-            ? "Data zwrócenia książki nie moze być z przeszłosci" 
+            ? "Return date cannot be from the past" 
             : this.returnDateError;
           console.log(this.returnDateError);
         } else {
           this.returnDateError = this.editedItem.returnDate
             ? ""
-            : "Data zwrócenia książki jest wymagana";
+            : "Return date is required";
           if (this.editedItem.returnDate <= borrow.returnDate) {
-            this.returnDateError = "Data zwrócenia książki musi być pożniejsza niż aktualna data zwrócenia";
+            this.returnDateError = "Return date has to be after current return date";
           }
           this.returnDateError = returnDate < today
-            ? "Data zwrócenia książki nie moze byc z przeszłości" 
+            ? "Return date cannot be from the past" 
             : this.returnDateError;
         }
-        console.log(this.bookError, this.returnDateError);
+
         if (this.bookError || this.returnDateError) {
           return;
         }
