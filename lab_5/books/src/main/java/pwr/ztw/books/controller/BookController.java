@@ -57,7 +57,7 @@ public class BookController {
     public ResponseEntity<?> deleteBook(@PathVariable Long id) {
         try {
             bookService.deleteBookById(id);
-            return ResponseEntity.ok(Collections.singletonMap("message", "Book deleted successfully"));
+            return ResponseEntity.ok(Collections.singletonMap("message", "Book successfully deleted"));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(Collections.singletonMap("errorMessage", e.getMessage()));
         }

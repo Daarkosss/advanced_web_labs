@@ -58,7 +58,7 @@ public class AuthorController {
     public ResponseEntity<?> deleteAuthor(@PathVariable Long id) {
         try {
             authorService.deleteAuthor(id);
-            return ResponseEntity.ok(Collections.singletonMap("message", "Author deleted successfully"));
+            return ResponseEntity.ok(Collections.singletonMap("message", "Author successfully deleted"));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(Collections.singletonMap("errorMessage", e.getMessage()));
         }

@@ -65,7 +65,7 @@ public class BorrowController {
     public ResponseEntity<?> deleteBorrow(@PathVariable Long id) {
         try {
             borrowService.deleteBorrowById(id);
-            return ResponseEntity.ok(Collections.singletonMap("message", "Borrow deleted successfully"));
+            return ResponseEntity.ok(Collections.singletonMap("message", "Borrow successfully deleted"));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(Collections.singletonMap("errorMessage", e.getMessage()));
         }
