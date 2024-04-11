@@ -1,3 +1,8 @@
 type Query {
     demo: String!
 }
+
+type Employe { 
+    employees: [Empleyee!] 
+    employee(id: ID!): Empleyee 
+}
