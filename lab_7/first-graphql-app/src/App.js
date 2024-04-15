@@ -31,6 +31,74 @@ function userById(parent, args, context, info) {
   return usersList.find(u => u.id == args.id); 
 }
 
+function createUser(parent, args, context, info) {
+  const { name, email, login } = args;
+  const lastId = usersList.reduce((max, user) => user.id > max ? user.id : max, 0); // znajdź najwyższe id
+  const newUser = {
+    id: lastId + 1,  // przypisz nowe id większe o 1 od najwyższego
+    name,
+    email,
+    login
+  };
+  usersList.push(newUser);
+  return newUser;
+}
+
+
+function updateUser(parent, args, context, info) {
+  const { id, name, email, login } = args;
+  const user = usersList.find(u => u.id == id);
+  if (!user) return null;
+  user.name = name !== undefined ? name : user.name;
+  user.email = email !== undefined ? email : user.email;
+  user.login = login !== undefined ? login : user.login;
+  return user;
+}
+
+
+function deleteUser(parent, args, context, info) {
+  const { id } = args;
+  const index = usersList.findIndex(u => u.id == id);
+  if (index === -1) return null;
+  const [deletedUser] = usersList.splice(index, 1);
+  return deletedUser;
+}
+
+
+function createToDo(parent, args, context, info) {
+  const { title, completed, user_id } = args;
+  const lastId = todosList.reduce((max, todo) => todo.id > max ? todo.id : max, 0); // znajdź najwyższe id
+  const newToDo = {
+    id: lastId + 1,  // przypisz nowe id większe o 1 od najwyższego
+    title,
+    completed,
+    user_id
+  };
+  todosList.push(newToDo);
+  return newToDo;
+}
+
+
+
+function updateToDo(parent, args, context, info) {
+  const { id, title, completed } = args;
+  const todo = todosList.find(t => t.id == id);
+  if (!todo) return null;
+  todo.title = title !== undefined ? title : todo.title;
+  todo.completed = completed !== undefined ? completed : todo.completed;
+  return todo;
+}
+
+
+function deleteToDo(parent, args, context, info) {
+  const { id } = args;
+  const index = todosList.findIndex(t => t.id == id);
+  if (index === -1) return null;
+  const [deletedToDo] = todosList.splice(index, 1);
+  return deletedToDo;
+}
+
+
 async function getRestUsersList() {     
   try {         
     const users = await axios.get("https://jsonplaceholder.typicode.com/users")         
@@ -52,10 +120,18 @@ const yoga = createYoga({
     typeDefs: typeDefs,
     resolvers: {
       Query: {
-        users: async () => getRestUsersList(),         
+        users: async () => usersList,//getRestUsersList(),         
         todos: () => todosList,       
         todo: (parent, args, context, info) => todoById(parent, args, context, info),
         user: (parent, args, context, info) => userById(parent, args, context, info),
+      },
+      Mutation: {
+        createUser: (parent, args, context, info) => createUser(parent, args, context, info),
+        updateUser: (parent, args, context, info) => updateUser(parent, args, context, info),
+        deleteUser: (parent, args, context, info) => deleteUser(parent, args, context, info),
+        createToDo: (parent, args, context, info) => createToDo(parent, args, context, info),
+        updateToDo: (parent, args, context, info) => updateToDo(parent, args, context, info),
+        deleteToDo: (parent, args, context, info) => deleteToDo(parent, args, context, info),
       },
       User: {         
         todos: (parent, args, context, info) => {             

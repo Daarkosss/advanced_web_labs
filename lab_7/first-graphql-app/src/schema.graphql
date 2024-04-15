@@ -2,7 +2,7 @@ type ToDoItem{
     id: ID!
     title: String!
     completed: Boolean!
-    user: User!
+    user: User
 } 
 
 type User {
@@ -18,4 +18,13 @@ type Query {
     todo(id: ID!): ToDoItem     
     users: [User!]     
     user(id: ID!): User
-} 
+}   
+
+type Mutation {
+    createUser(name: String!, email: String!, login: String!): User!
+    updateUser(id: ID!, name: String, email: String, login: String): User
+    deleteUser(id: ID!): User
+    createToDo(title: String!, completed: Boolean!, user_id: ID!): ToDoItem!
+    updateToDo(id: ID!, title: String, completed: Boolean): ToDoItem
+    deleteToDo(id: ID!): ToDoItem
+}
