@@ -14,3 +14,21 @@ mutation MyMutation {
     title
   }
 }
+
+
+query MyQuery {
+  authors(page: 0, size: 40, sort: "") {
+    firstName
+    id
+  }
+}
+
+mutation MyMutation {
+  createAuthor(birthDate: "2022-01-01", country: "Polska", firstName: "Karol", lastName: "Test 1") {
+    id,
+    birthDate,
+    books {
+      title
+    }
+  }
+}
