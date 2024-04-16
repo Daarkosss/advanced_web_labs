@@ -27,6 +27,16 @@ function todoById(parent, args, context, info) {
   return todosList.find(t => t.id == args.id); 
 }  
 
+async function getFromAPI(endpoint) {
+  try {
+    const response = await axios.get(`http://localhost:8080/api/v1/${endpoint}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    throw new Error('Failed to fetch data');
+  }
+}
+
 function userById(parent, args, context, info) {     
   return usersList.find(u => u.id == args.id); 
 }
@@ -124,6 +134,21 @@ const yoga = createYoga({
         todos: () => todosList,       
         todo: (parent, args, context, info) => todoById(parent, args, context, info),
         user: (parent, args, context, info) => userById(parent, args, context, info),
+        book: (_, { id }) => getFromAPI(`book/${id}`),
+        books: async (_, { page, size, sort }) => {
+          const response = await getFromAPI(`books?page=${page}&size=${size}&sort=${sort}`);
+          return response.content;
+        },
+        author: (_, { id }) => getFromAPI(`author/${id}`),
+        authors: async (_, { page, size, sort }) => {
+          const response = await getFromAPI(`authors?page=${page}&size=${size}&sort=${sort}`);
+          return response.content;
+        },
+        borrow: (_, { id }) => getFromAPI(`borrow/${id}`),
+        borrows: async (_, { page, size, sort }) => {
+          const response = await getFromAPI(`borrows?page=${page}&size=${size}&sort=${sort}`);
+          return response.content;
+        },
       },
       Mutation: {
         createUser: (parent, args, context, info) => createUser(parent, args, context, info),

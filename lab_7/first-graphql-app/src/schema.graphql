@@ -18,7 +18,37 @@ type Query {
     todo(id: ID!): ToDoItem     
     users: [User!]     
     user(id: ID!): User
+    book(id: ID!): Book
+    books(page: Int, size: Int, sort: String): [Book!]
+    author(id: ID!): Author
+    authors(page: Int, size: Int, sort: String): [Author!]
+    borrow(id: ID!): Borrow
+    borrows(page: Int, size: Int, sort: String): [Borrow!]
 }   
+
+type Author {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  country: String!
+  birthDate: String!
+  books: [Book!]
+}
+
+type Book {
+  id: ID!
+  title: String!
+  author: Author!
+  pages: Int!
+  releaseDate: String!
+}
+
+type Borrow {
+  id: ID!
+  book: Book!
+  borrowDate: String!
+  returnDate: String!
+}
 
 type Mutation {
     createUser(name: String!, email: String!, login: String!): User!
