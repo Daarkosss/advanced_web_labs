@@ -1,3 +1,22 @@
+type MockToDoItem{
+    id: ID!
+    title: String!
+    completed: Boolean!
+    user: MockUser
+} 
+
+type MockUser {
+    id: ID!
+    name: String!
+    username: String!
+    email: String!
+    address: Address!
+    phone: String!
+    website: String!
+    company: Company!
+    todos: [MockToDoItem!]!
+}
+
 type ToDoItem{
     id: ID!
     title: String!
@@ -8,23 +27,33 @@ type ToDoItem{
 type User {
     id: ID!
     name: String!
+    username: String!
     email: String!
-    login: String!    
+    address: Address!
+    phone: String!
+    website: String!
+    company: Company!
     todos: [ToDoItem!]!
 }
 
-type Query {     
-    todos: [ToDoItem!]     
-    todo(id: ID!): ToDoItem     
-    users: [User!]     
-    user(id: ID!): User
-    book(id: ID!): Book
-    books(page: Int, size: Int, sort: String): [Book!]
-    author(id: ID!): Author
-    authors(page: Int, size: Int, sort: String): [Author!]
-    borrow(id: ID!): Borrow
-    borrows(page: Int, size: Int, sort: String): [Borrow!]
-}   
+type Address {
+    street: String!
+    suite: String!
+    city: String!
+    zipcode: String!
+    geo: Geo!
+}
+
+type Geo {
+  lat: Float!
+  lng: Float!
+}
+
+type Company {
+    name: String!
+    catchPhrase: String!
+    bs: String!
+}
 
 type Author {
   id: ID!
@@ -54,16 +83,40 @@ type Message {
   message: String!
 }
 
+type Query {     
+    mockTodos: [MockToDoItem!]     
+    mockTodo(id: ID!): MockToDoItem   
+    mockUsers: [MockUser!]     
+    mockUser(id: ID!): MockUser
+
+    todos: [ToDoItem!]     
+    todo(id: ID!): ToDoItem   
+    users: [User!]     
+    user(id: ID!): User
+
+    book(id: ID!): Book
+    books(page: Int, size: Int, sort: String): [Book!]
+
+    author(id: ID!): Author
+    authors(page: Int, size: Int, sort: String): [Author!]
+
+    borrow(id: ID!): Borrow
+    borrows(page: Int, size: Int, sort: String): [Borrow!]
+}   
+
 type Mutation {
-    createUser(name: String!, email: String!, login: String!): User!
-    updateUser(id: ID!, name: String, email: String, login: String): User
-    deleteUser(id: ID!): User
-    createToDo(title: String!, completed: Boolean!, user_id: ID!): ToDoItem!
-    updateToDo(id: ID!, title: String, completed: Boolean): ToDoItem
-    deleteToDo(id: ID!): ToDoItem
+    mockCreateUser(name: String!, email: String!, login: String!): MockUser!
+    mockUpdateUser(id: ID!, name: String, email: String, login: String): MockUser
+    mockDeleteUser(id: ID!): MockUser
+
+    mockCreateToDo(title: String!, completed: Boolean!, userId: ID!): MockToDoItem!
+    mockUpdateToDo(id: ID!, title: String, completed: Boolean): MockToDoItem
+    mockDeleteToDo(id: ID!): MockToDoItem
+
     createBook(title: String!, authorId: ID!, pages: Int!, releaseDate: String!): Book!
     updateBook(id: ID!, title: String, authorId: ID, pages: Int, releaseDate: String): Book
     deleteBook(id: ID!): Message
+
     createAuthor(firstName: String!, lastName: String!, country: String!, birthDate: String!): Author!
     updateAuthor(id: ID!, firstName: String, lastName: String, country: String, birthDate: String): Author
     deleteAuthor(id: ID!): Message

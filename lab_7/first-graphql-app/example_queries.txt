@@ -1,0 +1,16 @@
+query MyQuery {
+  mockUser(id: "1") {
+    name,
+    todos {
+      id,
+      title
+    }
+  }
+}
+
+mutation MyMutation {
+  mockCreateToDo(completed: false, title: "Test 1", userId: "1") {
+    id,
+    title
+  }
+}
