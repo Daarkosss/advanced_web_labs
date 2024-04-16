@@ -50,6 +50,10 @@ type Borrow {
   returnDate: String!
 }
 
+type Message {
+  message: String!
+}
+
 type Mutation {
     createUser(name: String!, email: String!, login: String!): User!
     updateUser(id: ID!, name: String, email: String, login: String): User
@@ -57,4 +61,10 @@ type Mutation {
     createToDo(title: String!, completed: Boolean!, user_id: ID!): ToDoItem!
     updateToDo(id: ID!, title: String, completed: Boolean): ToDoItem
     deleteToDo(id: ID!): ToDoItem
+    createBook(title: String!, authorId: ID!, pages: Int!, releaseDate: String!): Book!
+    updateBook(id: ID!, title: String, authorId: ID, pages: Int, releaseDate: String): Book
+    deleteBook(id: ID!): Message
+    createAuthor(firstName: String!, lastName: String!, country: String!, birthDate: String!): Author!
+    updateAuthor(id: ID!, firstName: String, lastName: String, country: String, birthDate: String): Author
+    deleteAuthor(id: ID!): Message
 }

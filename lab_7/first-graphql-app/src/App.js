@@ -37,6 +37,22 @@ async function getFromAPI(endpoint) {
   }
 }
 
+async function postToAPI(endpoint, data) {
+  const response = await axios.post(`http://localhost:8080/api/v1/${endpoint}`, data);
+  return response.data;
+}
+
+async function putToAPI(endpoint, data) {
+  console.log(`http://localhost:8080/api/v1/${endpoint}`)
+  const response = await axios.put(`http://localhost:8080/api/v1/${endpoint}`, data);
+  return response.data;
+}
+
+async function deleteFromAPI(endpoint) {
+  const response = await axios.delete(`http://localhost:8080/api/v1/${endpoint}`);
+  return response.data;
+}
+
 function userById(parent, args, context, info) {     
   return usersList.find(u => u.id == args.id); 
 }
@@ -157,6 +173,25 @@ const yoga = createYoga({
         createToDo: (parent, args, context, info) => createToDo(parent, args, context, info),
         updateToDo: (parent, args, context, info) => updateToDo(parent, args, context, info),
         deleteToDo: (parent, args, context, info) => deleteToDo(parent, args, context, info),
+        createBook: async (_, { title, authorId, pages, releaseDate }) => {
+          return postToAPI('book/create', { title, authorId, pages, releaseDate });
+        },
+        updateBook: async (_, { id, title, authorId, pages, releaseDate }) => {
+          if (!id) throw new Error("No ID provided for the book to update.");
+          return putToAPI(`book/${id}`, { title, authorId, pages, releaseDate });
+        },
+        deleteBook: async (_, { id }) => {
+          return deleteFromAPI(`book/${id}`);
+        },
+        createAuthor: (_, { firstName, lastName, country, birthDate }) => {
+          return postToAPI('author/create', { firstName, lastName, country, birthDate });
+        },
+        updateAuthor: (_, { id, firstName, lastName, country, birthDate }) => {
+          return putToAPI(`author/${id}`, { firstName, lastName, country, birthDate });
+        },
+        deleteAuthor: (_, { id }) => {
+          return deleteFromAPI(`author/${id}`);
+        },
       },
       User: {         
         todos: (parent, args, context, info) => {             

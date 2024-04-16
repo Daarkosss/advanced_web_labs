@@ -12,6 +12,8 @@ import pwr.ztw.books.service.BookService;
 import pwr.ztw.books.dto.BookDTO;
 import pwr.ztw.books.dto.BookUpdateDTO;
 import pwr.ztw.books.dto.NewBookDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 
@@ -49,7 +51,19 @@ public class BookController {
     @Operation(summary = "Update book with provided id with new book data.")
     @PutMapping("/book/{id}")
     public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody BookUpdateDTO book) {
-        return ResponseEntity.ok(bookService.updateBook(id, book));
+        Logger logger = LoggerFactory.getLogger(getClass());
+        logger.info("Attempting to update book with ID: {}", id);
+        logger.debug("Book data received for update: {}", book);
+        Book updatedBook;
+        try {
+            updatedBook = bookService.updateBook(id, book);
+            logger.info("Book with ID: {} successfully updated.", id);
+        } catch (Exception e) {
+            logger.error("Error updating book with ID: {}: {}", id, e.getMessage());
+            throw e; // Rethrow to let Spring handle it and possibly translate it to HTTP status
+        }
+
+        return ResponseEntity.ok(updatedBook);
     }
 
     @Operation(summary = "Delete book by provided id")

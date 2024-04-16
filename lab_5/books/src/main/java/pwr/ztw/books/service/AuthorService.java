@@ -40,13 +40,22 @@ public class AuthorService {
         Author oldAuthor = authorRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Author not found"));
 
-        oldAuthor.setFirstName(author.getFirstName());
-        oldAuthor.setLastName(author.getLastName());
-        oldAuthor.setCountry(author.getCountry());
-        oldAuthor.setBirthDate(author.getBirthDate());
+        if (author.getFirstName() != null) {
+            oldAuthor.setFirstName(author.getFirstName());
+        }
+        if (author.getLastName() != null) {
+            oldAuthor.setLastName(author.getLastName());
+        }
+        if (author.getCountry() != null) {
+            oldAuthor.setCountry(author.getCountry());
+        }
+        if (author.getBirthDate() != null) {
+            oldAuthor.setBirthDate(author.getBirthDate());
+        }
 
         return authorRepository.save(oldAuthor);
     }
+
 
     public void deleteAuthor(Long id) {
         Author author = authorRepository.findById(id)

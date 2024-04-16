@@ -60,10 +60,16 @@ public class BorrowService {
     }
 
     public Borrow updateDueDate(Long id, NewReturnDateDTO newDate) {
-        Borrow borrow = borrowRepository.findById(id).orElseThrow(() -> new RuntimeException("Borrow not found"));
+        Borrow borrow = borrowRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Borrow not found"));
+
+        if (newDate.getNewReturnDate() == null) {
+            throw new IllegalArgumentException("New return date cannot be null.");
+        }
         if (newDate.getNewReturnDate().isBefore(LocalDate.now())) {
             throw new RuntimeException("Due date cannot be from the past");
         }
+
         borrow.setReturnDate(newDate.getNewReturnDate());
         return borrowRepository.save(borrow);
     }

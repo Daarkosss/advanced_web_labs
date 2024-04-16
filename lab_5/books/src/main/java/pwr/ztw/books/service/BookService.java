@@ -13,12 +13,15 @@ import pwr.ztw.books.repository.BorrowRepository;
 import pwr.ztw.books.dto.BookDTO;
 import pwr.ztw.books.dto.BookUpdateDTO;
 import pwr.ztw.books.dto.NewBookDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class BookService {
+    private static final Logger logger = LoggerFactory.getLogger(BookService.class);
     private final BookRepository bookRepository;
     private final BorrowRepository borrowRepository;
     private final AuthorRepository authorRepository;
@@ -55,16 +58,26 @@ public class BookService {
         Book oldBook = bookRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Book not found"));
 
-        oldBook.setTitle(book.getTitle());
-        oldBook.setPages(book.getPages());
-        oldBook.setReleaseDate(book.getReleaseDate());
+        if (book.getTitle() != null) {
+            oldBook.setTitle(book.getTitle());
+        }
+        if (book.getPages() != null) {
+            oldBook.setPages(book.getPages());
+        }
+        if (book.getReleaseDate() != null) {
+            oldBook.setReleaseDate(book.getReleaseDate());
+        }
 
-        Author author = authorRepository.findById(book.getAuthorId())
-                .orElseThrow(() -> new RuntimeException("Author not found"));
+        // Update author only if authorId is not null
+        if (book.getAuthorId() != null) {
+            Author author = authorRepository.findById(book.getAuthorId())
+                    .orElseThrow(() -> new RuntimeException("Author not found"));
+            oldBook.setAuthor(author);
+        }
 
-        oldBook.setAuthor(author);
         return bookRepository.save(oldBook);
     }
+
 }
 
 
