@@ -1,4 +1,4 @@
-query MyQuery {
+query getMockUser {
   mockUser(id: "1") {
     name,
     todos {
@@ -8,7 +8,7 @@ query MyQuery {
   }
 }
 
-mutation MyMutation {
+mutation createToDo {
   mockCreateToDo(completed: false, title: "Test 1", userId: "1") {
     id,
     title
@@ -16,19 +16,24 @@ mutation MyMutation {
 }
 
 
-query MyQuery {
-  authors(page: 0, size: 40, sort: "") {
-    firstName
-    id
+query getAuthor {
+  author(id: "1") {
+    id,
+    firstName,
+    lastName,
+    birthDate
   }
 }
 
-mutation MyMutation {
+mutation createAuthor {
   createAuthor(birthDate: "2022-01-01", country: "Polska", firstName: "Karol", lastName: "Test 1") {
     id,
     birthDate,
-    books {
-      title
-    }
+  }
+}
+
+mutation deleteAuthor {
+  deleteAuthor(id: "5") {
+    message
   }
 }

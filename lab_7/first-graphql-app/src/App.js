@@ -155,24 +155,34 @@ async function getFromAPI(endpoint) {
     return response.data;
   } catch (error) {
     console.error('Error fetching data:', error);
-    throw new Error('Failed to fetch data');
   }
 }
 
 async function postToAPI(endpoint, data) {
-  const response = await axios.post(`${API_URL}${endpoint}`, data);
-  return response.data;
+  try {
+    const response = await axios.post(`${API_URL}${endpoint}`, data);
+    return response.data;
+  } catch (error) {
+    console.error('Error posting data:', error);
+  }
 }
 
 async function putToAPI(endpoint, data) {
-  console.log(`${API_URL}${endpoint}`)
-  const response = await axios.put(`${API_URL}${endpoint}`, data);
-  return response.data;
+  try {
+    const response = await axios.put(`${API_URL}${endpoint}`, data);
+    return response.data;
+  } catch (error) {
+    console.error('Error updating data:', error);
+  }
 }
 
 async function deleteFromAPI(endpoint) {
-  const response = await axios.delete(`${API_URL}${endpoint}`);
-  return response.data;
+  try {
+    const response = await axios.delete(`${API_URL}${endpoint}`);
+    return response.data
+  } catch (error) {
+    console.error('Error deleting data:', error);
+  }
 }
 
 function userById(parent, args, context, info) {     
