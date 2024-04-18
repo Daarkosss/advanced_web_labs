@@ -3,187 +3,17 @@ import { createSchema, createYoga } from 'graphql-yoga'
 import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import axios from "axios";
+import { mockTodosList, mockUsersList } from './mockData.js';
+import { postToAPI, getFromAPI, deleteFromAPI, putToAPI, getRestTodosList, getRestUsersList } from './api.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const typeDefs = readFileSync(join(__dirname, 'schema.graphql'), 'utf8');
 
-const mockUsersList = [     
-  {
-    "id": 1,
-    "name": "Leanne Graham",
-    "username": "Bret",
-    "email": "Sincere@april.biz",
-    "address": {
-      "street": "Kulas Light",
-      "suite": "Apt. 556",
-      "city": "Gwenborough",
-      "zipcode": "92998-3874",
-      "geo": {
-        "lat": "-37.3159",
-        "lng": "81.1496"
-      }
-    },
-    "phone": "1-770-736-8031 x56442",
-    "website": "hildegard.org",
-    "company": {
-      "name": "Romaguera-Crona",
-      "catchPhrase": "Multi-layered client-server neural-net",
-      "bs": "harness real-time e-markets"
-    }
-  },
-  {
-    "id": 2,
-    "name": "Ervin Howell",
-    "username": "Antonette",
-    "email": "Shanna@melissa.tv",
-    "address": {
-      "street": "Victor Plains",
-      "suite": "Suite 879",
-      "city": "Wisokyburgh",
-      "zipcode": "90566-7771",
-      "geo": {
-        "lat": "-43.9509",
-        "lng": "-34.4618"
-      }
-    },
-    "phone": "010-692-6593 x09125",
-    "website": "anastasia.net",
-    "company": {
-      "name": "Deckow-Crist",
-      "catchPhrase": "Proactive didactic contingency",
-      "bs": "synergize scalable supply-chains"
-    }
-  },
-  {
-    "id": 3,
-    "name": "Clementine Bauch",
-    "username": "Samantha",
-    "email": "Nathan@yesenia.net",
-    "address": {
-      "street": "Douglas Extension",
-      "suite": "Suite 847",
-      "city": "McKenziehaven",
-      "zipcode": "59590-4157",
-      "geo": {
-        "lat": "-68.6102",
-        "lng": "-47.0653"
-      }
-    },
-    "phone": "1-463-123-4447",
-    "website": "ramiro.info",
-    "company": {
-      "name": "Romaguera-Jacobson",
-      "catchPhrase": "Face to face bifurcated interface",
-      "bs": "e-enable strategic applications"
-    }
-  },
-  {
-    "id": 4,
-    "name": "Patricia Lebsack",
-    "username": "Karianne",
-    "email": "Julianne.OConner@kory.org",
-    "address": {
-      "street": "Hoeger Mall",
-      "suite": "Apt. 692",
-      "city": "South Elvis",
-      "zipcode": "53919-4257",
-      "geo": {
-        "lat": "29.4572",
-        "lng": "-164.2990"
-      }
-    },
-    "phone": "493-170-9623 x156",
-    "website": "kale.biz",
-    "company": {
-      "name": "Robel-Corkery",
-      "catchPhrase": "Multi-tiered zero tolerance productivity",
-      "bs": "transition cutting-edge web services"
-    }
-  },
-];  
-
-const mockTodosList = [     
-  {
-    "userId": 1,
-    "id": 1,
-    "title": "delectus aut autem",
-    "completed": false
-  },
-  {
-    "userId": 1,
-    "id": 2,
-    "title": "quis ut nam facilis et officia qui",
-    "completed": false
-  },
-  {
-    "userId": 2,
-    "id": 3,
-    "title": "fugiat veniam minus",
-    "completed": false
-  },
-  {
-    "userId": 4,
-    "id": 4,
-    "title": "et porro tempora",
-    "completed": true
-  },
-  {
-    "userId": 4,
-    "id": 5,
-    "title": "laboriosam mollitia et enim quasi adipisci quia provident illum",
-    "completed": true
-  },
-  {
-    "userId": 4,
-    "id": 6,
-    "title": "qui ullam ratione quibusdam voluptatem quia omnis",
-    "completed": false
-  },
-];
 
 function todoById(parent, args, context, info) {     
   return mockTodosList.find(t => t.id == args.id); 
 }  
 
-
-const API_URL = 'http://localhost:8080/api/v1/'
-
-async function getFromAPI(endpoint) {
-  try {
-    const response = await axios.get(`${API_URL}${endpoint}`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-}
-
-async function postToAPI(endpoint, data) {
-  try {
-    const response = await axios.post(`${API_URL}${endpoint}`, data);
-    return response.data;
-  } catch (error) {
-    console.error('Error posting data:', error);
-  }
-}
-
-async function putToAPI(endpoint, data) {
-  try {
-    const response = await axios.put(`${API_URL}${endpoint}`, data);
-    return response.data;
-  } catch (error) {
-    console.error('Error updating data:', error);
-  }
-}
-
-async function deleteFromAPI(endpoint) {
-  try {
-    const response = await axios.delete(`${API_URL}${endpoint}`);
-    return response.data
-  } catch (error) {
-    console.error('Error deleting data:', error);
-  }
-}
 
 function userById(parent, args, context, info) {     
   return mockUsersList.find(u => u.id == args.id); 
@@ -254,28 +84,6 @@ function deleteToDo(parent, args, context, info) {
   const [deletedToDo] = mockTodosList.splice(index, 1);
   return deletedToDo;
 }
-
-
-async function getRestUsersList() {     
-  try {         
-    const users = await axios.get("https://jsonplaceholder.typicode.com/users")         
-    console.log(users);         
-    return users.data
-  } catch (error) {         
-    throw error 
-  }
-}
-
-async function getRestTodosList() {
-  try {
-    const response = await axios.get("https://jsonplaceholder.typicode.com/todos");
-    console.log(response);
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-}
-
 
 const yoga = createYoga({
   schema: createSchema({
@@ -357,7 +165,7 @@ const yoga = createYoga({
         }  
       },
 
-      User: {         
+      User: {
         todos: async (parent) => {
           const todos = await getRestTodosList();
           return todos.filter(todo => todo.userId === parent.id);
