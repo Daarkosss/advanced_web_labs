@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./Login.css";
+import "../../scss/main.scss";
 
 export const Login = ({
   room,

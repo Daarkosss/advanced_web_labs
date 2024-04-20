@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSocket } from "../../customHooks/useSocket";
 import { RiSendPlaneLine, RiSendPlaneFill } from "react-icons/ri";
-import "./Message.css";
+import "../../scss/main.scss";
 import { MessageList } from "./MessageList";
 import { useFetch } from "../../customHooks/useFetch";
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { timeStampConverter } from "../../util/timeUtils";
-import "./Message.css";
+import "../../scss/main.scss";
 
 export const MessageItem = ({ message, username }) => {
   const type = message.messageType.toLowerCase();

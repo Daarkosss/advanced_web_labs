@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import "./Message.css";
+import "../../scss/main.scss";
 import { MessageItem } from "./MessageItem";
 
 export const MessageList = ({ messageList,username }) => {

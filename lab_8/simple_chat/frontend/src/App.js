@@ -1,4 +1,3 @@
-import "./App.css";
 import { Login } from "./components/Login/Login";
 import { useState } from "react";
 import { Message } from "./components/Message/Message";
