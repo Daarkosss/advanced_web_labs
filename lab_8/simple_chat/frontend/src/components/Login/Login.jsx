@@ -11,7 +11,7 @@ export const Login = ({
 }) => {
   const checkForLogin = (e) => {
     e.preventDefault();
-    if (room == "" || username == "") {
+    if (room === "" || username === "") {
       alert("fill the required fields");
     } else {
       setLoggedIn(true);

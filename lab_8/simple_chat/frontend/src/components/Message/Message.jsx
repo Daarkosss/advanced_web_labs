@@ -3,7 +3,6 @@ import { useSocket } from "../../customHooks/useSocket";
 import { RiSendPlaneLine, RiSendPlaneFill } from "react-icons/ri";
 import "./Message.css";
 import { MessageList } from "./MessageList";
-import { timeStampConverter } from "../../util/timeUtils";
 import { useFetch } from "../../customHooks/useFetch";
 
 export const Message = ({ room, username }) => {
@@ -14,12 +13,12 @@ export const Message = ({ room, username }) => {
   const { responseData, error, loading } = useFetch("/message/" + room);
 
   const addMessageToList = (val) => {
-    if (val.room == "") return;
+    if (val.room === "") return;
     setMessageList([...messageList, val]);
   };
 
   useEffect(() => {
-    if (responseData != undefined) {
+    if (responseData !== undefined) {
       setMessageList([...responseData, ...messageList]);
     }
   }, [responseData]);
@@ -32,11 +31,10 @@ export const Message = ({ room, username }) => {
   const sendMessage = (e) => {
     e.preventDefault();
     console.log('sending message')
-    if (messageInput != "") {
+    if (messageInput !== "") {
       sendData({
         content: messageInput,
       });
-      const time = ""; //timeStampConverter(Math.floor(Date.now() / 1000));
       addMessageToList({
         content: messageInput,
         username: username,
@@ -61,7 +59,7 @@ export const Message = ({ room, username }) => {
             placeholder="Type a message"
           />
           <button type="submit">
-            {messageInput == "" ? (
+            {messageInput === "" ? (
               <RiSendPlaneLine size={25} />
             ) : (
               <RiSendPlaneFill color="#2671ff" size={25} />
