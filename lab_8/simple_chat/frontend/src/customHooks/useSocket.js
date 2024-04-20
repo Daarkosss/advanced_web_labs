@@ -14,6 +14,7 @@ export const useSocket = (room, username) => {
   const [isConnected, setConnected] = useState(false);
   const sendData = useCallback(
     (payload) => {
+      console.log('sending message to socket', payload);
       socket.emit("send_message", {
         room: room,
         content: payload.content,

@@ -31,6 +31,7 @@ export const Message = ({ room, username }) => {
 
   const sendMessage = (e) => {
     e.preventDefault();
+    console.log('sending message')
     if (messageInput != "") {
       sendData({
         content: messageInput,
