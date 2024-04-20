@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSocket } from "../../customHooks/useSocket";
-import { RiSendPlaneLine, RiSendPlaneFill } from "react-icons/ri";
+import { IoSendSharp  } from "react-icons/io5";
 import "../../scss/main.scss";
 import { MessageList } from "./MessageList";
 import { useFetch } from "../../customHooks/useFetch";
 
-export const Message = ({ room, username }) => {
+export const Message = ({ room, username, setLoggedIn }) => {
   const { isConnected, socketResponse, sendData } = useSocket(room, username);
   const [messageInput, setMessageInput] = useState("");
   const [messageList, setMessageList] = useState([]);
@@ -46,10 +46,16 @@ export const Message = ({ room, username }) => {
     }
   };
 
+  const leaveRoom = () => {
+    setLoggedIn(false);
+    room = null;
+  }
+
   return (
     <div className="message_root_div">
       <span className="room_name">Room: {room} </span>
       <span className="user_name">Welcome: {username} </span>
+      <button className="leave-button" onClick={ leaveRoom }>Leave room</button>
       <div className="message_component">
         <MessageList username={username} messageList={messageList} />
         <form className="chat-input" onSubmit={(e) => sendMessage(e)}>
@@ -59,12 +65,8 @@ export const Message = ({ room, username }) => {
             onChange={(e) => setMessageInput(e.target.value)}
             placeholder="Type a message"
           />
-          <button type="submit">
-            {messageInput === "" ? (
-              <RiSendPlaneLine size={25} />
-            ) : (
-              <RiSendPlaneFill color="#2671ff" size={25} />
-            )}
+          <button type="submit" className="send-button" disabled={ messageInput === "" }>
+              <IoSendSharp size={22} />
           </button>
         </form>
       </div>

@@ -24,14 +24,14 @@ export const Login = ({
         <input
           type="text"
           required
-          placeholder="room name"
+          placeholder="Enter room name"
           value={room}
           onChange={(e) => setRoom(e.target.value)}
         />
         <input
           type="text"
           required
-          placeholder="username"
+          placeholder="Enter username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />

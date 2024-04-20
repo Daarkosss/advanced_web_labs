@@ -2,21 +2,23 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: 98vw;
     align-items: center;
   }
+  
   .message_component {
     display: flex;
-    width: 90%;
+    width: 80%;
     min-width: 200px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #575757;
+    background-color: $message-container-color;
   }
   
   .room_name {
     margin: 20px 0px 10px 50px;
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 700;
     width: 100%;
     text-align: start;
@@ -24,13 +26,13 @@
   
   .user_name {
     font-size: 25px;
-    color: rgb(15, 77, 211);
+    color: darken($primary-color, 3%);
     font-weight: 700;
     margin-bottom: 20px;
   }
   
   .message_list {
-    height: 50vh;
+    height: 70vh;
     width: 100%;
     display: flex;
     overflow-y: scroll;
@@ -58,13 +60,13 @@
     color: #fdfdfd;
     user-select: none;
     margin-bottom: 5px;
-    margin-left: 15px;
+    margin-left: 5px;
     font-size: 20px;
     font-weight: 600;
   }
   
   .message_content_client {
-    background-color: rgb(79, 135, 255);
+    background-color: darken($primary-color, 2%);
     display: flex;
     padding: 10px;
     font-size: 19px;
@@ -83,7 +85,7 @@
   }
   
   .message_content_client_self {
-    background-color: rgb(15, 77, 211);
+    background-color: darken($primary-color, 8%);
     display: flex;
     padding: 10px;
     font-size: 19px;
@@ -102,7 +104,7 @@
   }
   
   .message_content_server {
-    background-color: rgb(66, 66, 66);
+    background-color: $secondary-color;
     display: flex;
     padding: 10px;
     font-size: 19px;
@@ -116,7 +118,7 @@
     flex: 0 0 auto;
     height: 70px;
     width: 100%;
-    background: #40434e;
+    background: lighten($secondary-color, 20%);
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28);
   }
   .chat-input input {
@@ -130,7 +132,7 @@
     text-indent: 10px;
     font-size: 12pt;
     padding: 0;
-    background: #40434e;
+    background: lighten($secondary-color, 20%);
   }
   
   .chat-input ::placeholder {
@@ -163,7 +165,7 @@
   }
   .chat-input input[good] + button {
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
-    background: #2671ff;
+    background: $primary-color;
   }
   .chat-input input[good] + button:hover {
     box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -172,3 +174,30 @@
     fill: white;
   }
   
+.send-button {
+  color: $secondary-color;
+
+  &:enabled{
+    color: $primary-color;
+    cursor: pointer;
+  }
+}
+
+.leave-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 8px 16px;
+  background-color: $primary-color;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 20px;
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+}

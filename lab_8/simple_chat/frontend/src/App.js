@@ -18,7 +18,7 @@ function App() {
           setLoggedIn={setLoggedIn}
         />
       ) : (
-        <Message room={room} username={username} />
+        <Message room={room} username={username} setLoggedIn={setLoggedIn} />
       )}
     </div>
   );

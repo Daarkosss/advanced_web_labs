@@ -42,6 +42,7 @@ export const useSocket = (room, username) => {
       });
     });
     return () => {
+      console.log("disconnecting websocket");
       s.disconnect();
     };
   }, [room]);
