@@ -18,7 +18,8 @@ export const Message = ({ room, username }) => {
   };
 
   useEffect(() => {
-    if (responseData !== undefined) {
+    if (responseData !== null) {
+      console.log(responseData);
       setMessageList([...responseData, ...messageList]);
     }
   }, [responseData]);
