@@ -1,11 +1,14 @@
 package com.simplechat.backend.socket;
 
+import com.corundumstudio.socketio.AckRequest;
+import com.corundumstudio.socketio.SocketIOClient;
 import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.listener.ConnectListener;
 import com.corundumstudio.socketio.listener.DataListener;
 import com.corundumstudio.socketio.listener.DisconnectListener;
 import com.simplechat.backend.constants.Constants;
 import com.simplechat.backend.model.Message;
+import com.simplechat.backend.model.TypingDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +17,6 @@ import java.util.stream.Collectors;
 @Component
 @Slf4j
 public class SocketModule {
-
 
     private final SocketIOServer server;
     private final SocketService socketService;
@@ -25,9 +27,13 @@ public class SocketModule {
         server.addConnectListener(onConnected());
         server.addDisconnectListener(onDisconnected());
         server.addEventListener("send_message", Message.class, onChatReceived());
-
+        server.addEventListener("typing", TypingDTO.class, this::onTypingReceived);
     }
 
+    private void onTypingReceived(SocketIOClient client, TypingDTO data, AckRequest ackSender) {
+        log.info("Typing received: " + data.getUsername() + " in room: " + data.getRoom() + " is typing? " + data.getIsTyping());
+        socketService.handleTyping(client, data);
+    }
 
     private DataListener<Message> onChatReceived() {
         return (senderClient, data, ackSender) -> {
@@ -57,9 +63,8 @@ public class SocketModule {
             String room = params.get("room").stream().collect(Collectors.joining());
             String username = params.get("username").stream().collect(Collectors.joining());
             socketService.saveInfoMessage(client, String.format(Constants.DISCONNECT_MESSAGE, username), room);
+            socketService.removeTypingUser(room, username);
             log.info("Socket ID[{}] - room[{}] - username [{}]  discnnected to chat module through", client.getSessionId().toString(), room, username);
         };
     }
-
-
 }
