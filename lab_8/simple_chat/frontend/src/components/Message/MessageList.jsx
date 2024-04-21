@@ -1,20 +1,36 @@
 import React, { useEffect, useRef } from "react";
+import { store } from "../../store/store";
+import { observer } from "mobx-react-lite";
 import "../../scss/main.scss";
 import { MessageItem } from "./MessageItem";
+import { reaction } from "mobx";
 
-export const MessageList = ({ username, messageList, typingUsers }) => {
+export const MessageList = observer (() => {
   const messagesEndRef = useRef(null);
+
   const scrollToBottom = () => {
-    messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    // Dodanie minimalnego opóźnienia, aby upewnić się, że przewijanie wykonuje się po aktualizacji DOM
+    setTimeout(() => {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, 10);
   };
-  useEffect(scrollToBottom, [messageList, typingUsers]);
+  
+  useEffect(() => {
+    const dispose = reaction(
+      () => [store.messages.slice(), store.typingUsers.slice()],
+      () => scrollToBottom(),
+      { fireImmediately: true }
+    );
+
+    return () => dispose();
+  }, []);
 
   return (
     <div className="message_list">
-      {messageList.map((x, idx) => (
-        <MessageItem key={idx} message={x} username={username} />
+      {store.messages.map((x, idx) => (
+        <MessageItem key={idx} message={x} />
       ))}
-      {typingUsers.map(user => (
+      {store.typingUsers.map(user => (
         <div key={user} className="typing_status">
           {user} is typing...
         </div>
@@ -22,4 +38,4 @@ export const MessageList = ({ username, messageList, typingUsers }) => {
       <div ref={messagesEndRef} />
     </div>
   );
-};
+});

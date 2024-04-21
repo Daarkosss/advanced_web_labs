@@ -1,10 +1,11 @@
 import React from "react";
 import { timeStampConverter } from "../../util/timeUtils";
+import { store } from "../../store/store";
 import "../../scss/main.scss";
 
-export const MessageItem = ({ message, username }) => {
+export const MessageItem = ({ message }) => {
   const type = message.messageType.toLowerCase();
-  const self = message.username === username ? "_self" : "";
+  const self = message.username === store.username ? "_self" : "";
   const time = timeStampConverter(message.createdDateTime);
 
   return (

@@ -1,20 +1,19 @@
-import React from "react";
-
+import React, { useState } from "react";
+import { observer } from "mobx-react-lite";
+import { store } from "../../store/store";
 import "../../scss/main.scss";
 
-export const Login = ({
-  room,
-  setRoom,
-  username,
-  setUsername,
-  setLoggedIn,
-}) => {
+export const Login = observer (() => {
+  const [room, setRoom] = useState("");
+  const [username, setUsername] = useState("");
+
   const checkForLogin = (e) => {
     e.preventDefault();
     if (room === "" || username === "") {
       alert("fill the required fields");
     } else {
-      setLoggedIn(true);
+      store.room = room;
+      store.username = username;
     }
   };
 
@@ -39,4 +38,4 @@ export const Login = ({
       </form>
     </div>
   );
-};
+});

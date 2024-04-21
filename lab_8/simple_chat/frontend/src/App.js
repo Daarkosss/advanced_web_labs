@@ -1,27 +1,19 @@
+import React from 'react';
+import { observer } from 'mobx-react-lite';
 import { Login } from "./components/Login/Login";
-import { useState } from "react";
 import { Message } from "./components/Message/Message";
+import { store } from "./store/store";
 
-function App() {
-  const [username, setUsername] = useState("");
-  const [room, setRoom] = useState("");
-  const [isLoggedIn, setLoggedIn] = useState(false);
-
+const App = observer(() => {
   return (
     <div>
-      {!isLoggedIn ? (
-        <Login
-          username={username}
-          setUsername={setUsername}
-          room={room}
-          setRoom={setRoom}
-          setLoggedIn={setLoggedIn}
-        />
+      {!store.isLoggedIn ? (
+        <Login/>
       ) : (
-        <Message room={room} username={username} setLoggedIn={setLoggedIn} />
+        <Message/>
       )}
     </div>
   );
-}
+});
 
 export default App;
