@@ -201,3 +201,9 @@
     background-color: darken($primary-color, 10%);
   }
 }
+
+.typing_status {
+  color: #fff; // Biały kolor tekstu
+  padding-left: 15px; // Odstęp od lewej strony
+  font-style: italic; // Kursywa dla tekstu
+}
