@@ -3,12 +3,14 @@ package com.simplechat.backend.socket;
 import com.corundumstudio.socketio.SocketIOClient;
 import com.simplechat.backend.model.Message;
 import com.simplechat.backend.model.MessageType;
-import com.simplechat.backend.model.TypingData;
+import com.simplechat.backend.model.TypingDTO;
 import com.simplechat.backend.service.MessageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
@@ -17,19 +19,23 @@ import java.util.concurrent.ConcurrentHashMap;
 public class SocketService {
 
     private final MessageService messageService;
-    private ConcurrentHashMap<String, String> typingUsers = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<String, List<String>> typingUsers = new ConcurrentHashMap<>();
 
-    public void handleTyping(SocketIOClient senderClient, TypingData data) {
-        String username = data.getUsername();
-        String room = data.getRoom();
-        boolean isTyping = data.isTyping();
+    public List<String> getTypingUsersByRoom(String room) {
+        return typingUsers.getOrDefault(room, new ArrayList<>());
+    }
 
-        if (data.isTyping()) {
-            typingUsers.put(room, username);
+    public void handleTyping(SocketIOClient senderClient, TypingDTO data) {
+        typingUsers.computeIfAbsent(data.getRoom(), k -> new ArrayList<>());
+        List<String> users = typingUsers.get(data.getRoom());
+        if (data.getIsTyping()) {
+            if (!users.contains(data.getUsername())) {
+                users.add(data.getUsername());
+            }
         } else {
-            typingUsers.remove(room, username);
+            users.remove(data.getUsername());
         }
-        sendTypingStatus(senderClient, room, username, isTyping);
+        sendTypingStatus(senderClient, data.getRoom(), data.getUsername(), data.getIsTyping());
     }
 
     private void sendTypingStatus(SocketIOClient senderClient, String room, String username, boolean isTyping) {

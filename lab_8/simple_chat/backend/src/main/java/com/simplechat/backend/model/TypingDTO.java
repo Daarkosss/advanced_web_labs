@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.Getter;
 
 @Data
-public class TypingData {
+public class TypingDTO {
     @Getter
     private String username;
 
@@ -13,7 +13,7 @@ public class TypingData {
 
     private boolean isTyping;
 
-    public boolean isTyping() {
+    public boolean getIsTyping() {
         return this.isTyping;
     }
 }

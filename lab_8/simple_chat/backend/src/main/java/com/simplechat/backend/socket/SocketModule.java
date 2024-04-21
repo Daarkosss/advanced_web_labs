@@ -8,7 +8,7 @@ import com.corundumstudio.socketio.listener.DataListener;
 import com.corundumstudio.socketio.listener.DisconnectListener;
 import com.simplechat.backend.constants.Constants;
 import com.simplechat.backend.model.Message;
-import com.simplechat.backend.model.TypingData;
+import com.simplechat.backend.model.TypingDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -27,14 +27,13 @@ public class SocketModule {
         server.addConnectListener(onConnected());
         server.addDisconnectListener(onDisconnected());
         server.addEventListener("send_message", Message.class, onChatReceived());
-        server.addEventListener("typing", TypingData.class, this::onTypingReceived);
+        server.addEventListener("typing", TypingDTO.class, this::onTypingReceived);
     }
 
-    private void onTypingReceived(SocketIOClient client, TypingData data, AckRequest ackSender) {
-        log.info("Typing received: " + data.getUsername() + " in room: " + data.getRoom() + " is typing? " + data.isTyping());
+    private void onTypingReceived(SocketIOClient client, TypingDTO data, AckRequest ackSender) {
+        log.info("Typing received: " + data.getUsername() + " in room: " + data.getRoom() + " is typing? " + data.getIsTyping());
         socketService.handleTyping(client, data);
     }
-
 
     private DataListener<Message> onChatReceived() {
         return (senderClient, data, ackSender) -> {
