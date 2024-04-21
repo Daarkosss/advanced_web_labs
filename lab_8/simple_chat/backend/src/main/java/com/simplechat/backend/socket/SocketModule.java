@@ -63,6 +63,7 @@ public class SocketModule {
             String room = params.get("room").stream().collect(Collectors.joining());
             String username = params.get("username").stream().collect(Collectors.joining());
             socketService.saveInfoMessage(client, String.format(Constants.DISCONNECT_MESSAGE, username), room);
+            socketService.removeTypingUser(room, username);
             log.info("Socket ID[{}] - room[{}] - username [{}]  discnnected to chat module through", client.getSessionId().toString(), room, username);
         };
     }

@@ -38,6 +38,11 @@ public class SocketService {
         sendTypingStatus(senderClient, data.getRoom(), data.getUsername(), data.getIsTyping());
     }
 
+    public void removeTypingUser(String room, String username) {
+        List<String> users = typingUsers.get(room);
+        users.remove(username);
+    }
+
     private void sendTypingStatus(SocketIOClient senderClient, String room, String username, boolean isTyping) {
         for (SocketIOClient client : senderClient.getNamespace().getRoomOperations(room).getClients()) {
             if (!client.getSessionId().equals(senderClient.getSessionId())) {
