@@ -1,11 +1,14 @@
 package com.simplechat.backend.socket;
 
+import com.corundumstudio.socketio.AckRequest;
+import com.corundumstudio.socketio.SocketIOClient;
 import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.listener.ConnectListener;
 import com.corundumstudio.socketio.listener.DataListener;
 import com.corundumstudio.socketio.listener.DisconnectListener;
 import com.simplechat.backend.constants.Constants;
 import com.simplechat.backend.model.Message;
+import com.simplechat.backend.model.TypingData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +17,6 @@ import java.util.stream.Collectors;
 @Component
 @Slf4j
 public class SocketModule {
-
 
     private final SocketIOServer server;
     private final SocketService socketService;
@@ -25,7 +27,12 @@ public class SocketModule {
         server.addConnectListener(onConnected());
         server.addDisconnectListener(onDisconnected());
         server.addEventListener("send_message", Message.class, onChatReceived());
+        server.addEventListener("typing", TypingData.class, this::onTypingReceived);
+    }
 
+    private void onTypingReceived(SocketIOClient client, TypingData data, AckRequest ackSender) {
+        log.info("Typing received: " + data.getUsername() + " in room: " + data.getRoom() + " is typing? " + data.isTyping());
+        socketService.handleTyping(client, data);
     }
 
 
@@ -60,6 +67,4 @@ public class SocketModule {
             log.info("Socket ID[{}] - room[{}] - username [{}]  discnnected to chat module through", client.getSessionId().toString(), room, username);
         };
     }
-
-
 }
