@@ -42,7 +42,7 @@
   
   .message_item_client {
     display: flex;
-    width: 50%;
+    width: 70%;
     justify-content: flex-start;
     align-items: flex-start;
     flex-direction: column;
@@ -53,7 +53,7 @@
     display: flex;
     justify-content: flex-end;
     flex-wrap: wrap;
-    margin: 5px 5px 5px 70px;
+    margin: 5px 5px 5px 200px;
   }
   .message_item_username {
     display: flex;

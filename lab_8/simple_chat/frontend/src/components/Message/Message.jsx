@@ -67,6 +67,7 @@ export const Message = observer(() => {
             value={messageInput}
             onChange={handleInputChange}
             placeholder="Type a message"
+            maxLength={1000}
           />
           <button type="submit" className="send-button" disabled={messageInput === ""}>
             <IoSendSharp size={22} />
