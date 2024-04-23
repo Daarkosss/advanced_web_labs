@@ -38,7 +38,11 @@ class Store {
   async getRoomMessages() {
     try {
       const response = await api.getRoomMessages(this.room);
-      this.messages = response.messages;
+      const allMessages = response.messages;
+      for (let i = 0; i < allMessages.length; i++) {
+        this.addMessage(allMessages[i]);
+      }
+      console.log("messages", this.messages);
       this.typingUsers = response.typingUsers;
     } catch (e) {
       console.error(e);
@@ -46,7 +50,16 @@ class Store {
   }
 
   addMessage(message) {
-    this.messages.push(message);
+    // if first message word != this.username
+    console.log("message", message);
+    if (typeof message !== "string") {
+      const firstWord = message.content.split(" ")[0];
+      if (firstWord !== this.username || message.messageType === "CLIENT") {
+        this.messages.push(message);
+      }
+    } else {
+      this.messages.push(message);
+    }
   }
 
   addTypingUser(username) {
@@ -57,9 +70,9 @@ class Store {
   }
 
   removeTypingUser(username) {
-    this.typingUsers = this.typingUsers.filter(user => user !== username);
+    this.typingUsers = this.typingUsers.filter((user) => user !== username);
   }
-  
+
   sendMessage(content, username, room) {
     api.socketManager.sendData({ content, username, room });
   }
@@ -67,7 +80,6 @@ class Store {
   sendTypingSignal(isTyping) {
     api.socketManager.sendTypingSignal(isTyping);
   }
-
 }
 
 export const store = new Store();

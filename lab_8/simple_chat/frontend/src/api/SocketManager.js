@@ -21,7 +21,10 @@ class SocketManager {
     this.socket.on("typing", (receivedUsername, isTyping) => {
       console.log('received typing', receivedUsername, isTyping);
       if (isTyping) {
-        this.store.addTypingUser(receivedUsername);
+        if (receivedUsername !== this.store.username)
+        {
+          this.store.addTypingUser(receivedUsername);
+        }
       } else {
         this.store.removeTypingUser(receivedUsername);
       }

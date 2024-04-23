@@ -19,7 +19,4 @@ public class ServerCommandLineRunner implements CommandLineRunner {
         server.start();
     }
 
-
-
-
 }
