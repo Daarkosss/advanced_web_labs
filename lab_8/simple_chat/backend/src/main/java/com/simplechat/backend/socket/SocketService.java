@@ -40,15 +40,18 @@ public class SocketService {
 
     public void removeTypingUser(String room, String username) {
         List<String> users = typingUsers.get(room);
-        users.remove(username);
+        if (users != null) {
+            users.remove(username);
+        }
     }
 
     private void sendTypingStatus(SocketIOClient senderClient, String room, String username, boolean isTyping) {
+        log.info(senderClient.getNamespace().getRoomOperations(room).getClients().toString());
         for (SocketIOClient client : senderClient.getNamespace().getRoomOperations(room).getClients()) {
             if (!client.getSessionId().equals(senderClient.getSessionId())) {
                 client.sendEvent("typing", username, isTyping);
             }
-        };
+        }
     }
 
     public void sendSocketMessage(SocketIOClient senderClient, Message message, String room) {
