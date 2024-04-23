@@ -12,7 +12,6 @@ class SocketManager {
       reconnection: false,
       query: `username=${this.store.username}&room=${this.store.room}`
     });
-    console.log('XD');
 
     this.socket.on("connect", () => {
       console.log("Connected to socket");
